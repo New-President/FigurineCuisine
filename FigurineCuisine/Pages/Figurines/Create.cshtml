@@ -1,0 +1,59 @@
+﻿@page
+@model FigurineCuisine.Pages.Figurines.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Figurine</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Figurine.Name" class="control-label"></label>
+                <input asp-for="Figurine.Name" class="form-control" />
+                <span asp-validation-for="Figurine.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Figurine.RetailerID" class="control-label"></label>
+                <input asp-for="Figurine.RetailerID" class="form-control" />
+                <span asp-validation-for="Figurine.RetailerID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Figurine.Brand" class="control-label"></label>
+                <input asp-for="Figurine.Brand" class="form-control" />
+                <span asp-validation-for="Figurine.Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Figurine.Manufacturer" class="control-label"></label>
+                <input asp-for="Figurine.Manufacturer" class="form-control" />
+                <span asp-validation-for="Figurine.Manufacturer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Figurine.PublishedDate" class="control-label"></label>
+                <input asp-for="Figurine.PublishedDate" class="form-control" />
+                <span asp-validation-for="Figurine.PublishedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Figurine.Price" class="control-label"></label>
+                <input asp-for="Figurine.Price" class="form-control" />
+                <span asp-validation-for="Figurine.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
