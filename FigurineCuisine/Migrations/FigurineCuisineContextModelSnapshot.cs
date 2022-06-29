@@ -35,11 +35,14 @@ namespace FigurineCuisine.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Ratings")
+                        .HasColumnType("int");
 
                     b.Property<int>("RetailerID")
                         .HasColumnType("int");

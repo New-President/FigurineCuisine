@@ -18,7 +18,8 @@ namespace FigurineCuisine.Migrations
                     Brand = table.Column<string>(nullable: true),
                     Manufacturer = table.Column<string>(nullable: true),
                     PublishedDate = table.Column<DateTime>(nullable: false),
-                    Price = table.Column<float>(nullable: false)
+                    Price = table.Column<decimal>(nullable: false),
+                    Ratings = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

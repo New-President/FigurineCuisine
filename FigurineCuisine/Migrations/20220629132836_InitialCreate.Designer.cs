@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FigurineCuisine.Migrations
 {
     [DbContext(typeof(FigurineCuisineContext))]
-    [Migration("20220628140756_InitialCreate")]
+    [Migration("20220629132836_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,11 +37,14 @@ namespace FigurineCuisine.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("PublishedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Ratings")
+                        .HasColumnType("int");
 
                     b.Property<int>("RetailerID")
                         .HasColumnType("int");

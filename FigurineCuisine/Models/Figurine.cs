@@ -11,6 +11,7 @@ namespace FigurineCuisine.Models
         public string Brand { get; set; }
         public string Manufacturer { get; set; }
         public DateTime PublishedDate { get; set; }
-        public float Price { get; set; }
+        public decimal Price { get; set; }
+        public int Ratings { get; set; }
     }
 }
