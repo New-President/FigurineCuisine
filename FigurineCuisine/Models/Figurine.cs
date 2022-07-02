@@ -10,7 +10,11 @@ namespace FigurineCuisine.Models
         public int RetailerID { get; set; }
         public string Brand { get; set; }
         public string Manufacturer { get; set; }
+
+        [Display(Name = "Publish Date")]
+        [DataType(DataType.Date)]
         public DateTime PublishedDate { get; set; }
+
         public decimal Price { get; set; }
         public int Ratings { get; set; }
     }

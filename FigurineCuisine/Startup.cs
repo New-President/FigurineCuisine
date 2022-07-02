@@ -10,7 +10,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using FigurineCuisine.Data;
-
+using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 namespace FigurineCuisine
 {
     public class Startup
@@ -29,6 +31,11 @@ namespace FigurineCuisine
 
             services.AddDbContext<FigurineCuisineContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("FigurineCuisineContext")));
+
+            services.AddIdentity<ApplicationUser, Microsoft.AspNetCore.Identity.IdentityRole>()
+                .AddDefaultUI()
+                .AddEntityFrameworkStores<FigurineCuisineContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
