@@ -37,6 +37,14 @@ namespace FigurineCuisine
                 .AddEntityFrameworkStores<FigurineCuisineContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddMvc()
+                .AddRazorPagesOptions(options =>
+                {
+                    // options.Conventions.AllowAnonymousToFolder("/Movies");
+                    options.Conventions.AuthorizePage("/Figurines/Create");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Manage/Accounts");
+                });
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings
