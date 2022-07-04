@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using FigurineCuisine.Data;
 using FigurineCuisine.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Figurines
 {
+    [Authorize(Roles = "Admin, Users")]
     public class IndexModel : PageModel
     {
 

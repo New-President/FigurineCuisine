@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FigurineCuisine.Data
 {
-    public class FigurineCuisineContext : IdentityDbContext<ApplicationUser>
+    public class FigurineCuisineContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         public FigurineCuisineContext (DbContextOptions<FigurineCuisineContext> options)
             : base(options)
