@@ -129,6 +129,30 @@ namespace FigurineCuisine.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("FigurineCuisine.Models.AuditRecord", b =>
+                {
+                    b.Property<int>("Audit_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuditActionType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateTimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("KeyFigurineFieldID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Audit_ID");
+
+                    b.ToTable("AuditRecords");
+                });
+
             modelBuilder.Entity("FigurineCuisine.Models.Figurine", b =>
                 {
                     b.Property<int>("ID")

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FigurineCuisine.Models
 {
@@ -14,7 +16,7 @@ namespace FigurineCuisine.Models
         [Display(Name = "Publish Date")]
         [DataType(DataType.Date)]
         public DateTime PublishedDate { get; set; }
-
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public int Ratings { get; set; }
     }

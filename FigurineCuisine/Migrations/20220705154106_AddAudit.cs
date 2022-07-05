@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FigurineCuisine.Migrations
 {
-    public partial class AddIdentityRole : Migration
+    public partial class AddAudit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,6 +53,22 @@ namespace FigurineCuisine.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AuditRecords",
+                columns: table => new
+                {
+                    Audit_ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AuditActionType = table.Column<string>(nullable: true),
+                    Username = table.Column<string>(nullable: true),
+                    DateTimeStamp = table.Column<DateTime>(nullable: false),
+                    KeyFigurineFieldID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditRecords", x => x.Audit_ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Figurine",
                 columns: table => new
                 {
@@ -63,7 +79,7 @@ namespace FigurineCuisine.Migrations
                     Brand = table.Column<string>(nullable: true),
                     Manufacturer = table.Column<string>(nullable: true),
                     PublishedDate = table.Column<DateTime>(nullable: false),
-                    Price = table.Column<decimal>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Ratings = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -233,6 +249,9 @@ namespace FigurineCuisine.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "AuditRecords");
 
             migrationBuilder.DropTable(
                 name: "Figurine");
