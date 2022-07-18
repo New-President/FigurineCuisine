@@ -19,12 +19,18 @@ namespace FigurineCuisine.Models
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Please enter valid string.")]
         public string Manufacturer { get; set; }
 
+        [Required]
         [Display(Name = "Publish Date")]
         [DataType(DataType.Date)]
         public DateTime PublishedDate { get; set; }
 
+        [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         public int Ratings { get; set; }
+
+        [Required]
+        [StringLength(10)]
+        public string Category { get; set; }
     }
 }

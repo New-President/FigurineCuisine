@@ -29,25 +29,49 @@ namespace FigurineCuisine.Models
                     new Figurine
                     {
                         Name = "Re:Zero Rem Figurine",
+                        RetailerID = 1,
                         Brand = "Aniplex",
-                        Manufacturer = "China",
-                        Price = 399.99M
+                        Manufacturer = "Japan",
+                        Price = 399.99M,
+                        Category = "Anime"
                     },
 
                     new Figurine
                     {
                         Name = "Demon Slayer Nezuko",
+                        RetailerID = 2,
                         Brand = "TAMASHII NATIONS",
-                        Manufacturer = "China",
-                        Price = 399.99M
+                        Manufacturer = "Japan",
+                        Price = 200.99M,
+                        Category = "Anime"
                     },
 
                     new Figurine
                     {
                         Name = "Wooden Carving of Spongebob",
+                        RetailerID = 3,
                         Brand = "Aniplex",
                         Manufacturer = "China",
-                        Price = 399.99M
+                        Price = 40.99M,
+                        Category = "Wooden"
+                    },
+                    new Figurine
+                    {
+                        Name = "Statue of Greek God",
+                        RetailerID = 4,
+                        Brand = "Chirstian",
+                        Manufacturer = "Europe",
+                        Price = 999.99M,
+                        Category = "Others"
+                    },
+                    new Figurine
+                    {
+                        Name = "Wooden Barbie Doll",
+                        RetailerID = 5,
+                        Brand = "Disney",
+                        Manufacturer = "China",
+                        Price = 1.99M,
+                        Category = "Wooden"
                     }
                 );
                 context.SaveChanges();

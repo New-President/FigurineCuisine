@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "Register";
 }
+<head>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
+    <script>
+    var onloadCallback = function(){
+        grecaptcha.render('divcaptcha', {
+            'sitekey': '6LdoIPwgAAAAAJyLjmo1zMMeYEEgeT9psjyqfzR4',
+            'callback' : function (response){
+                $('#txtcaptcha').val('t');
+            }
+        })
+    }
+    </script>
+</head>
 
 <h1>@ViewData["Title"]</h1>
 
@@ -27,6 +41,13 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <br />
+            <div class="form-group" >
+                <input asp-for="Input.Recaptcha" id="txtcaptcha" type="text" style="display:none" class="form-control" />
+                <div id="divcaptcha"></div>
+                <span asp-validation-for="Input.Recaptcha" class="text-danger"></span>
+            </div>
+            <br />
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>
