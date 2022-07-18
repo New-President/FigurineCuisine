@@ -12,8 +12,8 @@
 
 <form>
     <p>
-        Title: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Filter" />
+        Name: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Search" />
     </p>
 </form>
 
@@ -34,6 +34,8 @@
                 @Html.DisplayNameFor(model => model.Figurine[0].Manufacturer)
             </th>
             <th> @Html.DisplayNameFor(model => model.Figurine[0].Price) </th>
+
+            <th> @Html.DisplayNameFor(model => model.Figurine[0].Category) </th>
             <th></th>
         </tr>
     </thead>
@@ -54,6 +56,7 @@
                     @Html.DisplayFor(modelItem => item.Manufacturer)
                 </td>
                 <td> @Html.DisplayFor(modelItem => item.Price) </td>
+                <td> @Html.DisplayFor(modelItem => item.Category) </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                     <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
