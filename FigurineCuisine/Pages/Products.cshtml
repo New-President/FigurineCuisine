@@ -10,6 +10,9 @@
 
 <form>
     <p>
+        <select asp-for="Category" asp-items="Model.Category">
+            <option value="">All</option>
+        </select>
         <input type="hidden" asp-for="FigurineCategory" />
         Name: <input type="text" asp-for="SearchString"/>
         <input type="submit" value="Search" />
