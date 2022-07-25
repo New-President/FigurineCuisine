@@ -12,7 +12,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Figurines
 {
-    [Authorize(Roles = "Admin, Users")]
     public class IndexModel : PageModel
     {
 
