@@ -16,11 +16,15 @@ namespace FigurineCuisine.Pages.Figurines
     public class IndexModel : PageModel
     {
 
+        public IList<Figurine> Figurine { get; set; }
+
         [BindProperty(SupportsGet = true)]
-        public string SearchString { get; set; }
-        public SelectList Genres { get; set; }
+        public string ? SearchString { get; set; }
+        public SelectList ? Category { get; set; }
+
         [BindProperty(SupportsGet = true)]
-        public string MovieGenre { get; set; }
+        public string? FigurineCategory { get; set; }
+
 
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
 
@@ -29,19 +33,26 @@ namespace FigurineCuisine.Pages.Figurines
             _context = context;
         }
 
-        public IList<Figurine> Figurine { get;set; }
 
         public async Task OnGetAsync()
         {
+            IQueryable<string> categoryQuery = from m in _context.Figurine
+                                            orderby m.Category
+                                            select m.Category;
+
             Figurine = await _context.Figurine.ToListAsync();
-            var movies = from m in _context.Figurine
+            var figurines = from m in _context.Figurine
                          select m; 
             if (!string.IsNullOrEmpty(SearchString))
             {
-                movies = movies.Where(s => s.Name.Contains(SearchString));
+                figurines = figurines.Where(s => s.Name.Contains(SearchString));
             }
-
-            Figurine = await movies.ToListAsync();
+            if (!string.IsNullOrEmpty(FigurineCategory))
+            {
+                figurines = figurines.Where(x => x.Category == FigurineCategory);
+            }
+            Category = new SelectList(await categoryQuery.Distinct().ToListAsync());
+            Figurine = await figurines.ToListAsync();
 
         }
     }
