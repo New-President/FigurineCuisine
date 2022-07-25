@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace FigurineCuisine.Models
 {
@@ -12,6 +13,8 @@ namespace FigurineCuisine.Models
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Please enter valid string.")]
         public string Name { get; set; }
         public int RetailerID { get; set; }
+        [JsonPropertyName("img")]
+        public string Image { get; set; }
 
         [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Please enter valid string.")]
         public string Brand { get; set; }

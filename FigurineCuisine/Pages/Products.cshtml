@@ -8,10 +8,6 @@
 
 <h1>Products</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
-
 <form>
     <p>
         <input type="hidden" asp-for="FigurineCategory" />
@@ -19,58 +15,22 @@
         <input type="submit" value="Search" />
     </p>
 </form>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationRole[0].Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationRole[0].CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationRole[0].IPAddress)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationRole[0].Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationRole[0].NormalizedName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ApplicationRole[0].ConcurrencyStamp)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model.ApplicationRole) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IPAddress)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NormalizedName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConcurrencyStamp)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card-columns">
+    @foreach (var product in Model.Figurine)
+    {
+        <div class="card">
+            <div class="card-img" style="background-image: url('@product.Image');">
+            </div>
+            <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+                <h5 class="card-title">@product.Name</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted" style="display: flex; justify-content: center; align-items: center;">
+                    <button>
+                        Add to cart
+                    </button>
+                </small>
+            </div>
+        </div>
+    }
+</div>
