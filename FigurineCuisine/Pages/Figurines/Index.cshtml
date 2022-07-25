@@ -12,7 +12,8 @@
 
 <form>
     <p>
-        Name: <input type="text" asp-for="SearchString" />
+        <input type="hidden" asp-for="FigurineCategory" />
+        Name: <input type="text" asp-for="SearchString"/>
         <input type="submit" value="Search" />
     </p>
 </form>
