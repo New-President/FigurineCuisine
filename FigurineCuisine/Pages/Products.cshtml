@@ -56,13 +56,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <h1>Products</h1>
-
 <form>
     <p>
-        <select asp-for="Category" asp-items="Model.Category">
+        <select asp-for="FigurineCategory" asp-items="Model.Category" onchange="this.form.submit()">
             <option value="">All</option>
         </select>
-        <input type="hidden" asp-for="FigurineCategory" />
+        <p></p>
         Name: <input type="text" asp-for="SearchString"/>
         <input type="submit" value="Search" />
     </p>

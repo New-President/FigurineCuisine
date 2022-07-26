@@ -48,8 +48,18 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
         {
             [Required]
             [Display(Name = "Username")]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            [StringLength(40, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
             public string Username { get; set; }
+
+            [Required]
+            [Display(Name = "First Name")]
+            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            public string FirstName { get; set; }
+
+            [Required]
+            [Display(Name = "Last Name")]
+            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            public string LastName { get; set; }
 
             [Required]
             [EmailAddress]
@@ -74,8 +84,24 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
+
+            [Required]
+            public string Address { get; set; }
+
+            [Required]
+            public string City { get; set; }
+
+            [Required]
+            public string Region { get; set; }
+
+            [Required]
+            [DataType(DataType.PostalCode)]
+            [Compare("Zip", ErrorMessage = "The is an invalid zip code")]
+            public string Zip { get; set; }
+
             [Required]
             [StringLength(1, ErrorMessage = "Prove that you are not a robot!", MinimumLength = 1)]
+
             public string Recaptcha { get; set; }
         }
 
