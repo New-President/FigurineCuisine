@@ -25,7 +25,7 @@ namespace FigurineCuisine.Pages
         public CartItems CartItems { get; set; }
 
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
-        public static Figurine? selectedProduct;
+        public static Figurine? selectedProduct { get; set; }
 
         public static void SelectProduct(Figurine product)
         {
