@@ -160,13 +160,7 @@ namespace FigurineCuisine.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CartID")
-                        .HasColumnType("int");
-
                     b.Property<int?>("FigurineID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductID")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")

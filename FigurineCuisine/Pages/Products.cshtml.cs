@@ -17,12 +17,20 @@ namespace FigurineCuisine.Pages
         public IList<Figurine> Figurine { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
-        public SelectList ? Category { get; set; }
+        public SelectList? Category { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public string? FigurineCategory { get; set; }
+        [BindProperty]
+        public CartItems CartItems { get; set; }
 
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
+        public static Figurine? selectedProduct;
+
+        public static void SelectProduct(Figurine product)
+        {
+            selectedProduct = product;
+        }
 
         public ProductsModel(FigurineCuisine.Data.FigurineCuisineContext context)
         {
@@ -38,8 +46,7 @@ namespace FigurineCuisine.Pages
                                                select m.Category;
             ApplicationRole = await _context.Roles.ToListAsync();
 
-            var figurines = from m in _context.Figurine
-                         select m; 
+            var figurines = from m in _context.Figurine select m; 
             if (!string.IsNullOrEmpty(SearchString))
             {
                 figurines = figurines.Where(s => s.Name.Contains(SearchString));
@@ -50,6 +57,18 @@ namespace FigurineCuisine.Pages
             }
             Category = new SelectList(await categoryQuery.Distinct().ToListAsync());
             Figurine = await figurines.ToListAsync();
+        }
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
+
+            _context.CartItems.Add(CartItems);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage("./Index");
         }
     }
 }

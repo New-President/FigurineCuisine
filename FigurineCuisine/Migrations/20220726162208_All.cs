@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FigurineCuisine.Migrations
 {
-    public partial class AddAudit : Migration
+    public partial class All : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -76,11 +76,13 @@ namespace FigurineCuisine.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: true),
                     RetailerID = table.Column<int>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
                     Brand = table.Column<string>(nullable: true),
                     Manufacturer = table.Column<string>(nullable: true),
                     PublishedDate = table.Column<DateTime>(nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Ratings = table.Column<int>(nullable: false)
+                    Ratings = table.Column<int>(nullable: false),
+                    Category = table.Column<string>(maxLength: 10, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,6 +195,26 @@ namespace FigurineCuisine.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CartItems",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(nullable: false),
+                    FigurineID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItems", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Figurine_FigurineID",
+                        column: x => x.FigurineID,
+                        principalTable: "Figurine",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -231,6 +253,11 @@ namespace FigurineCuisine.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItems_FigurineID",
+                table: "CartItems",
+                column: "FigurineID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -254,13 +281,16 @@ namespace FigurineCuisine.Migrations
                 name: "AuditRecords");
 
             migrationBuilder.DropTable(
-                name: "Figurine");
+                name: "CartItems");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Figurine");
         }
     }
 }

@@ -17,23 +17,25 @@ namespace FigurineCuisine.Pages.Checkout
         /// </summary>
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly Data.FigurineCuisineContext _context;
         //private readonly IShop _shop;
 
         /// <summary>
         /// A contructor to set propety to the corresponding interface instance
         /// </summary>
         /// <param name="context">IInventory interface</param>
-        public CartModel(UserManager<ApplicationUser> userManager/*, IShop shopcontext*/, IEmailSender emailSender)
+        public CartModel(UserManager<ApplicationUser> userManager/*, IShop shopcontext*/, IEmailSender emailSender, Data.FigurineCuisineContext context)
         {
             //_shop = shopcontext;
             _userManager = userManager;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
         /// A property to be available on the Model property in the Razor Page
         /// </summary>
-        public IEnumerable<CartItems> CartItem { get; set; }
+        /// public IEnumerable<CartItems> CartItem { get; set; }
 
         /// <summary>
         /// Asynchronous handler method to process the default GET request
