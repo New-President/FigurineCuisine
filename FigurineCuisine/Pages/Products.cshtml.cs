@@ -36,10 +36,12 @@ namespace FigurineCuisine.Pages
             IQueryable<string> categoryQuery = from m in _context.Figurine
                                                orderby m.Category
                                                select m.Category;
+
             ApplicationRole = await _context.Roles.ToListAsync();
 
             var figurines = from m in _context.Figurine
                          select m; 
+
             if (!string.IsNullOrEmpty(SearchString))
             {
                 figurines = figurines.Where(s => s.Name.Contains(SearchString));

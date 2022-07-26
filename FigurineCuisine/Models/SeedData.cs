@@ -33,7 +33,8 @@ namespace FigurineCuisine.Models
                         Brand = "Aniplex",
                         Manufacturer = "Japan",
                         Price = 399.99M,
-                        Category = "Anime"
+                        Category = "Anime",
+                        Image = "https://images.goodsmile.info/cgm/images/product/20170210/6256/43794/large/cc3d0d1e91f916a2b68dc0ed5ece2da8.jpg",
                     },
 
                     new Figurine
@@ -43,7 +44,8 @@ namespace FigurineCuisine.Models
                         Brand = "TAMASHII NATIONS",
                         Manufacturer = "Japan",
                         Price = 200.99M,
-                        Category = "Anime"
+                        Category = "Anime",
+                        Image = "https://cdn.shopify.com/s/files/1/0367/9101/products/figurine-demon-slayer-kimetsu-no-yaiba-nezuko-kamado-dx-edition-figma-no-508-dx-br-pre-order-28776895250511_1024x1024.jpg?v=1634451489"
                     },
 
                     new Figurine
@@ -53,7 +55,8 @@ namespace FigurineCuisine.Models
                         Brand = "Aniplex",
                         Manufacturer = "China",
                         Price = 40.99M,
-                        Category = "Wooden"
+                        Category = "Wooden",
+                        Image = "https://i.pinimg.com/originals/30/6d/b9/306db91b03a411bd4d03c684619e63b7.jpg"
                     },
                     new Figurine
                     {
@@ -62,7 +65,8 @@ namespace FigurineCuisine.Models
                         Brand = "Chirstian",
                         Manufacturer = "Europe",
                         Price = 999.99M,
-                        Category = "Others"
+                        Category = "Others",
+                        Image = "https://t3.ftcdn.net/jpg/01/16/77/20/360_F_116772018_nf18bS2FM3WrhOsZUC6ru2qQNS1uxwza.jpg"
                     },
                     new Figurine
                     {
@@ -71,7 +75,8 @@ namespace FigurineCuisine.Models
                         Brand = "Disney",
                         Manufacturer = "China",
                         Price = 1.99M,
-                        Category = "Wooden"
+                        Category = "Wooden",
+                        Image = "https://upload.wikimedia.org/wikipedia/commons/0/01/Gliederpuppe.jpg"
                     }
                 );
                 context.SaveChanges();
