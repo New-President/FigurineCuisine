@@ -73,11 +73,18 @@ namespace FigurineCuisine
                 options.ExpireTimeSpan = TimeSpan.FromSeconds(900);
                 options.SlidingExpiration = true;
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireAdministratorRole",
+                     policy => policy.RequireRole("Admin"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
