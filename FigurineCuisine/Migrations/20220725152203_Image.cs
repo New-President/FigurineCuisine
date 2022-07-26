@@ -6,8 +6,6 @@ namespace FigurineCuisine.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Customers");
 
             migrationBuilder.AddColumn<string>(
                 name: "Image",
