@@ -88,8 +88,6 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             [Required]
             public string Address { get; set; }
 
-            [Required]
-            public string City { get; set; }
 
             [Required]
             public string Region { get; set; }
@@ -117,7 +115,18 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Username, Email = Input.Email, PhoneNumber = Input.PhoneNumber };
+                var user = new ApplicationUser
+                {
+                    UserName = Input.Username,
+                    Email = Input.Email,
+                    PhoneNumber = Input.PhoneNumber,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Address = Input.Address,
+                    Region = Input.Region,
+                    PostalCode = Input.Zip
+                
+                };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

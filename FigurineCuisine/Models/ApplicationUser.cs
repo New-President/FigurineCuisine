@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 using System;
 
 namespace FigurineCuisine.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string FullName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public int Age { get; set; }
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        public string Address { get; set; }
+
+        public string Region { get; set; }
+
+        public string State { get; set; }
+
+        [Display(Name = "Postal Code")]
+        public string PostalCode { get; set; }
     }
 }

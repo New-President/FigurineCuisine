@@ -27,15 +27,15 @@
            <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Input.FirstName">First Name</label>
-                <input asp-for="Input.FirstName" type="text" class="form-control" id="inputUsername" placeholder="First Name">
+                <input asp-for="Input.FirstName" type="text" class="form-control" id="inputFirstName" placeholder="First Name">
             </div>
             <div class="form-group col-md-6">
-                <label asp-for="Input.LastName">Last Name</label>
-                <input asp-for="Input.LastName" type="text" class="form-control" id="inputUsername" placeholder="Last Name">
+                <label asp-for="Input.LastName">First Name</label>
+                <input asp-for="Input.LastName" type="text" class="form-control" id="inputLastName" placeholder="First Name">
             </div>
         </div>
          <div class="form-row">
-            <div class="form-group">
+            <div class="form-group col-md-6">
                 <label asp-for="Input.Email">Email</label>
                 <input asp-for="Input.Email" type="email" class="form-control" id="inputEmail" placeholder="Email">
                 <span asp-validation-for="Input.Email"></span>
@@ -54,7 +54,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
-                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <input asp-for="Input.ConfirmPassword" type="password" class="form-control" id="inputCfmPassword" placeholder="Password">
             </div>
         </div>
         <div class="form-group">
@@ -64,7 +64,7 @@
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Input.Region">Region</label>
-                <select asp-for="Input.Region" id="inputState" class="form-control">
+                <select asp-for="Input.Region" id="inputRegion" class="form-control">
                     <option selected>Choose...</option>
                     <option>North</option>
                     <option>North-East</option>
