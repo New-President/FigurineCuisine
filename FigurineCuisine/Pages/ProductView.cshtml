@@ -54,10 +54,10 @@
         <div class="row2">
             <p>@Model.selectedProduct.Brand</p>
         </div>
-        @if (SignInManager.IsSignedIn(User))
+        @*@if (SignInManager.IsSignedIn(User))
         {
             @await Component.InvokeAsync("MiniCart")
-        }
+        }*@
     </div>
 </body>
 </html>
