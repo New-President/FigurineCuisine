@@ -53,12 +53,12 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "First Name")]
-            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
             public string FirstName { get; set; }
 
             [Required]
             [Display(Name = "Last Name")]
-            [StringLength(10, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            [StringLength(15, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 3)]
             public string LastName { get; set; }
 
             [Required]
@@ -67,11 +67,6 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             [RegularExpression("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage = "Please enter a valid email address")]
             public string Email { get; set; }
 
-            [Required]
-            [Display(Name = "Phone Number")]
-            [DataType(DataType.PhoneNumber)]
-            [RegularExpression(@"^\(?([0-9]{8})$", ErrorMessage = "Please enter a valid phone number.")]
-            public string PhoneNumber { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -113,13 +108,13 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            System.Diagnostics.Debug.WriteLine("success");
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser
                 {
                     UserName = Input.Username,
                     Email = Input.Email,
-                    PhoneNumber = Input.PhoneNumber,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     Address = Input.Address,
@@ -127,6 +122,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
                     PostalCode = Input.Zip
                 
                 };
+                System.Diagnostics.Debug.WriteLine("success2");
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -139,7 +135,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
+                    System.Diagnostics.Debug.WriteLine("success3");
                     await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 

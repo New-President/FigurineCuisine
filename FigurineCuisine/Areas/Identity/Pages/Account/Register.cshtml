@@ -19,19 +19,20 @@
 </head>
 
 <div class="row">
-    
     <div class="col-md-6">
-        
     <h1 style="text-align: center">@ViewData["Title"]</h1>
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
            <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Input.FirstName">First Name</label>
                 <input asp-for="Input.FirstName" type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                <span asp-validation-for="Input.FirstName"></span>
             </div>
             <div class="form-group col-md-6">
-                <label asp-for="Input.LastName">First Name</label>
-                <input asp-for="Input.LastName" type="text" class="form-control" id="inputLastName" placeholder="First Name">
+                <label asp-for="Input.LastName">Last Name</label>
+                <input asp-for="Input.LastName" type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+                <span asp-validation-for="Input.LastName"></span>
             </div>
         </div>
          <div class="form-row">
@@ -45,21 +46,25 @@
             <div class="form-group col-md-6">
                 <label asp-for="Input.Username">Username</label>
                 <input asp-for="Input.Username" type="text" class="form-control" id="inputUsername" placeholder="Username">
+                <span asp-validation-for="Input.Username"></span>
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Input.Password">Password</label>
                 <input asp-for="Input.Password" type="password" class="form-control" id="inputPassword" placeholder="Password">
+                <span asp-validation-for="Input.Password"></span>
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Input.ConfirmPassword">Confirm Password</label>
                 <input asp-for="Input.ConfirmPassword" type="password" class="form-control" id="inputCfmPassword" placeholder="Password">
+                <span asp-validation-for="Input.ConfirmPassword"></span>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="Input.Address">Address</label>
             <input asp-for="Input.Address" type="text" class="form-control" id="inputAddress" placeholder="1234 Main Street..">
+            <span asp-validation-for="Input.Address"></span>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -71,16 +76,17 @@
                     <option>Central</option>
                     <option>East</option>
                     <option>West</option>
-                    
                 </select>
+                <span asp-validation-for="Input.Region"></span>
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Input.Zip">Postal Code</label>
                 <input asp-for="Input.Zip" type="text" class="form-control" id="inputPostalCode">
+                 <span asp-validation-for="Input.Zip"></span>
             </div>
         </div>
         
-        <div class="form-group">
+        <div class="form-row">
             <input asp-for="Input.Recaptcha" id="txtcaptcha" type="text" style="display:none" class="form-control" />
             <div id="divcaptcha"></div>
             <span asp-validation-for="Input.Recaptcha" class="text-danger"></span>
