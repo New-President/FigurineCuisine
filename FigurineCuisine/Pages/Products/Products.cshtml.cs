@@ -25,14 +25,6 @@ namespace FigurineCuisine.Pages
         public CartItems CartItems { get; set; }
 
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
-        [BindProperty]
-        public static Figurine SelectedProduct { get; set; }
-
-        public void OnPostSelectProduct(Figurine product)
-        {
-            SelectedProduct = product;
-            System.Diagnostics.Debug.WriteLine(SelectedProduct.Name);
-        }
 
         public ProductsModel(FigurineCuisine.Data.FigurineCuisineContext context)
         {
@@ -70,7 +62,7 @@ namespace FigurineCuisine.Pages
             _context.CartItems.Add(CartItems);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Products");
+            return RedirectToPage("/Shop/Cart");
         }
     }
 }

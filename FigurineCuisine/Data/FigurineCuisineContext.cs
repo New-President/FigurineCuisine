@@ -22,6 +22,7 @@ namespace FigurineCuisine.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<FigurineCuisine.Models.Figurine> Figurine { get; set; }
+        public DbSet<FigurineCuisine.Models.Cart> Cart { get; set; }
 
         public DbSet<FigurineCuisine.Models.CartItems> CartItems { get; set; }
 
