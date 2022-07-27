@@ -17,14 +17,14 @@ namespace FigurineCuisine.Pages
             _context = context;
             _userManager = userManager;
         }
-        public IEnumerable<CartItems> CartItem { get; set; }
+        public IEnumerable<CartItems> CartItems { get; set; }
 
         public async Task OnGetAsync()
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
 
             Cart cart = await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == user.Id);
-            CartItem = _context.CartItems.Where(cartItem => cartItem.CartID == cart.ID).Include(x => x.Figurine);
+            CartItems = _context.CartItems.Where(cartItem => cartItem.CartID == cart.ID).Include(x => x.Figurine);
         }
     }
 }
