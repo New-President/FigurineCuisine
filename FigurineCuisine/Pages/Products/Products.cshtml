@@ -1,0 +1,51 @@
+﻿@page
+@model FigurineCuisine.Pages.ProductsModel
+@using Microsoft.AspNetCore.Components.Web
+@using FigurineCuisine.Models
+
+
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <h1 style="display: flex; justify-content: center; align-items: center;">Welcome tot the Products Page!</h1>
+    <form>
+        <p>
+            <select asp-for="FigurineCategory" asp-items="Model.Category" onchange="this.form.submit()">
+                <option value="">All</option>
+            </select>
+            <p></p>
+            Name: <input type="text" asp-for="SearchString" />
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+    <div class="card-columns">
+        @foreach (var product in Model.Figurine)
+        {
+            <div class="card">
+                <div class="card-img" style="background-image: url('@product.Image');">
+                </div>
+                <div class="card-body" style="display: flex; justify-content: center; align-items: center;">
+                    <h5 class="card-title">@product.Name</h5>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted" style="display: flex; justify-content: center; align-items: center;">
+                        <a href="/Products/ProductView/@product.ID">
+                            <button class="btn btn-primary" type="submit">View More</button>
+                            <input type="hidden" name="product" value="@product" />
+                        </a>
+                    </small>
+                </div>
+            </div>
+        }
+    </div>
+</body>
+</html>

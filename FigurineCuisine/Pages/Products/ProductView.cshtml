@@ -13,6 +13,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="~/css/style.css'" />
+    <style>
+        span {
+            cursor: pointer;
+        }
+
+        .minus, .plus {
+            width: 27px;
+            height: 27px;
+            background: #f2f2f2;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .number input {
+            height: 34px;
+            width: 100px;
+            text-align: center;
+            font-size: 26px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -26,10 +53,6 @@
                     <p> @Model.selectedProduct.Name</p>
                 </div>
                 <div class="row">
-                    <h6>SKU:&nbsp;&nbsp;</h6>
-                    <p> @Model.selectedProduct.Price</p>
-                </div>
-                <div class="row">
                     <h6>Price:&nbsp;&nbsp;</h6>
                     <p> $@Model.selectedProduct.Price</p>
                 </div>
@@ -37,12 +60,16 @@
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <form method="post">
-                            <div>
-                               @* <label asp-for="Input.Quantity">Quantity&nbsp;&nbsp;</label>
-                                <input asp-for="Input.Quantity" type="text">*@
+                            <div class="number">
+                                <input asp-for="CartItems.ID" class="form-control" type="hidden" value="@User.Identity.Name.ToString()" />
+                                <span class="minus">-</span>
+                                <input asp-for="CartItems.Quantity" class="form-control" type="text" value="1" />
+                                <span asp-validation-for="CartItems.Quantity" class="text-danger"></span>
+                                <span class="plus">+</span>
                                 <p>&nbsp;</p>
+                                <input asp-for="CartItems.Figurine" class="form-control" type="hidden" value="@Model.selectedProduct" />
+                                <button class="btn btn-primary" type="submit">Add to Cart</button>
                             </div>
-                            <button class="add-to-cart-button">Add to Cart</button>
                         </form>
                     }
                 </div>
@@ -54,10 +81,6 @@
         <div class="row2">
             <p>@Model.selectedProduct.Brand</p>
         </div>
-        @if (SignInManager.IsSignedIn(User))
-        {
-            @await Component.InvokeAsync("MiniCart")
-        }
     </div>
 </body>
 </html>
