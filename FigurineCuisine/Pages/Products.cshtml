@@ -7,11 +7,6 @@
 @{
     ViewData["Title"] = "Products";
     Layout = "~/Pages/Shared/_Layout.cshtml";
-    Figurine? selectedProduct = default;
-    void SelectProduct(Figurine product)
-    {
-        selectedProduct = product;
-    }
 }
 <!doctype html>
 <html lang="en">
@@ -70,9 +65,10 @@
                 </div>
                 <div class="card-footer">
                     <small class="text-muted" style="display: flex; justify-content: center; align-items: center;">
-                        <button onclick="@{FigurineCuisine.Pages.ProductsModel.SelectProduct(product);}" data-toggle="modal" data-target="#productModal" class="btn btn-primary">
-                            View More
-                        </button>
+                        <form asp-page-handler="Select" method="post">
+                            <button class="btn btn-default" data-toggle="modal" data-target="#productModal" type="submit">View More</button>
+                            <input type="hidden" name="product" value="@product"/>
+                        </form>
                     </small>
                 </div>
             </div>
@@ -82,27 +78,26 @@
 
     <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            @if (FigurineCuisine.Pages.ProductsModel.selectedProduct != null)
+            @if (FigurineCuisine.Pages.ProductsModel.SelectedProduct != null)
             {
-                System.Diagnostics.Debug.WriteLine(FigurineCuisine.Pages.ProductsModel.selectedProduct.Name);
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="productTitle">@FigurineCuisine.Pages.ProductsModel.selectedProduct.Name</h5>
+                        <h5 class="modal-title" id="productTitle">@FigurineCuisine.Pages.ProductsModel.SelectedProduct.Name</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="card">
-                            <div class="card-img" style="background-image: url('@FigurineCuisine.Pages.ProductsModel.selectedProduct.Image');">
+                            <div class="card-img" style="background-image: url('@FigurineCuisine.Pages.ProductsModel.SelectedProduct.Image');">
                             </div>
                             <div class="card-body">
-                                <p class="card-text">$@FigurineCuisine.Pages.ProductsModel.selectedProduct.Price</p>
+                                <p class="card-text">$@FigurineCuisine.Pages.ProductsModel.SelectedProduct.Price</p>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <form method="post">
+                        <form method="post" asp-page-handler="Create">
                             <div class="form-group">
                                 <div class="number">
                                     <label asp-for="CartItems.Quantity" class="control-label"></label>
@@ -113,9 +108,9 @@
                                     <span asp-validation-for="CartItems.Quantity" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="form-group" hidden="hidden">
-                                <input asp-for="CartItems.Figurine" class="form-control" value="@FigurineCuisine.Pages.ProductsModel.selectedProduct" hidden="hidden" />
-                                <span asp-validation-for="CartItems.Figurine" class="text-danger" hidden="hidden"></span>
+                            <div class="form-group" hidden>
+                                <input asp-for="CartItems.Figurine" class="form-control" value="@FigurineCuisine.Pages.ProductsModel.SelectedProduct" type="hidden" />
+                                <span asp-validation-for="CartItems.Figurine" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <button type="submit" value="Create" class="btn btn-primary">
