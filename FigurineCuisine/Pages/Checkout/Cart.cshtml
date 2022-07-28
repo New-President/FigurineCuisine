@@ -23,25 +23,26 @@
                     <div class="form-group col-md-8">
                         <h3>@item.Figurine.Name</h3>
                         <label asp-for="@item.Quantity">Quantity</label>
-                        <input asp-for="@item.Quantity" type="number" name="Quantity">
+                        <input asp-for="@item.Quantity" type="number" name="Quantity" min="1">
                         <p>$@(item.Figurine.Price * item.Quantity)</p>
                     </div>
                     <div class="form-group col-md-4">
-                        <button type="submit" class="btn btn-outline-primary" asp-page-handler="update" asp-route-id="@item.FigurineID">
+                        <button type="submit" class="btn btn-outline-primary" asp-page-handler="update" asp-route-id="@item.FigurineID" style="float: right;">
                             Update
                         </button>
-                        <button type="submit" class="btn btn-outline-danger" asp-page-handler="delete" asp-route-id="@item.FigurineID">
+                        <button type="submit" class="btn btn-outline-danger" asp-page-handler="delete" asp-route-id="@item.FigurineID" style="float: right; margin-right: 10px!important;">
                             Delete
                         </button>
                     </div>
                 </form>
             </div>
         </div>
+        <p></p>
     }
-    <div class="text-right">
+    <div class="text-left" style="display: inline;">
         <a href="/Products/Products" class="btn btn-outline-success" role="button">Go Back to Shopping</a>
     </div>
-    <div class="text-right">
+    <div class="text-right" style="display: inline; float: right;">
         <a href="/Checkout" class="btn btn-outline-success" role="button">Check Out</a>
     </div>
 </div>

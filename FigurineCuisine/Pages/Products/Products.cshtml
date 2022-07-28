@@ -16,15 +16,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-    <h1 style="display: flex; justify-content: center; align-items: center;">Welcome tot the Products Page!</h1>
+    <h1 style="display: flex; justify-content: center; align-items: center;">Welcome to the Products Page!</h1>
     <form>
         <p>
+            <p></p>
+            Name: <input type="text" asp-for="SearchString" style="width: 350px; display: inline"/>
+            <input type="submit" value="Search" style="margin-right: 512px!important;"/>
+            <p style="display: inline;">Filter: </p>
             <select asp-for="FigurineCategory" asp-items="Model.Category" onchange="this.form.submit()">
                 <option value="">All</option>
             </select>
-            <p></p>
-            Name: <input type="text" asp-for="SearchString" />
-            <input type="submit" value="Search" />
         </p>
     </form>
     <div class="card-columns">
