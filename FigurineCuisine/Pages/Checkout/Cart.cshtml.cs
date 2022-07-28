@@ -36,6 +36,11 @@ namespace FigurineCuisine.Pages.Checkout
             _context = context;
         }
 
+        public IEnumerable<CartItem> CartItem { get; set; }
+
+        public async Task<Cart> GetCartByUserIdAsync(string userId) => await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == userId);
+
+
         /// <summary>
         /// A property to be available on the Model property in the Razor Page
         /// </summary>
@@ -49,28 +54,61 @@ namespace FigurineCuisine.Pages.Checkout
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            var cartitems = from c in _context.CartItem where c.uid == user.Id select c;
-
-            // Get figurines here...
-            var figurines = from f in _context.Figurine select f;
-            CartItems = await cartitems.ToListAsync();
-            Figurines = await figurines.ToListAsync();
+            CartItem = await GetCartItemsByUserIdAsync(user.Id);
+            
         }
 
         public async Task<IActionResult> OnPostUpdateAsync(int id)
         {
             int updatedQuantity = Convert.ToInt32(Request.Form["Quantity"]);
             ApplicationUser user = await _userManager.GetUserAsync(User);
-            
+            CartItem cartItem = await GetCartItemByProductIdForUserAsync(user.Id, id);
+
+            cartItem.Quantity = updatedQuantity;
+            await UpdateCartItemsAsync(cartItem);
+
             return RedirectToPage();
+
+
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
-            //await _shop.RemoveCartItemsAsync(user.Id, id);
+            await RemoveCartItemsAsync(user.Id, id);
 
             return RedirectToPage();
+        }
+
+        public async Task<IEnumerable<CartItem>> GetCartItemsByUserIdAsync(string userId)
+        {
+            Cart cart = await GetCartByUserIdAsync(userId);
+            return _context.CartItem.Where(cartItem => cartItem.CartID == cart.ID).Include(x => x.Figurine);
+        }
+
+        public async Task<CartItem> GetCartItemByProductIdForUserAsync(string userId, int productId)
+        {
+            var cartItems = await GetCartItemsByUserIdAsync(userId);
+            return cartItems.FirstOrDefault(cartItem => cartItem.FigurineID == productId);
+        }
+
+        public async Task UpdateCartItemsAsync(CartItem cartItem)
+        {
+            _context.CartItem.Update(cartItem);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveCartItemsAsync(string userId, int productId)
+        {
+            CartItem cartItem = await GetCartItemByProductIdForUserAsync(userId, productId);
+            _context.CartItem.Remove(cartItem);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RemoveCartItemsAsync(IEnumerable<CartItem> cartItems)
+        {
+            _context.CartItem.RemoveRange(cartItems);
+            await _context.SaveChangesAsync();
         }
     }
 }
