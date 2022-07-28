@@ -12,7 +12,11 @@
     </h1>
     @foreach (var item in Model.CartItems)
     {
-        <div class="row">
+        @foreach (var figurine in Model.Figurines)
+        {
+            @if (figurine.ID == item.ID)
+            {
+            <div class="row">
             <div class="col-md-3">
                 
                 <img src="@Html.DisplayFor(modelItem => item.Figurine.Image)" width="250" height="250" />
@@ -36,12 +40,15 @@
                     </div>
                 </form>
             </div>
-        </div>
+            </div>
+    
+            <div class="text-right">
+                <a href="/Shop" class="btn btn-outline-success" role="button">Go Back to Shopping</a>
+            </div>
+            <div class="text-right">
+                <a href="/Checkout" class="btn btn-outline-success" role="button">Check Out</a>
+            </div>
+            }
+        }
     }
-    <div class="text-right">
-        <a href="/Shop" class="btn btn-outline-success" role="button">Go Back to Shopping</a>
-    </div>
-    <div class="text-right">
-        <a href="/Checkout" class="btn btn-outline-success" role="button">Check Out</a>
-    </div>
 </div>

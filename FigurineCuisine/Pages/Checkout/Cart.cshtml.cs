@@ -49,12 +49,12 @@ namespace FigurineCuisine.Pages.Checkout
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            var userCartID = await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == user.Id);
-            var cartitems = from c in _context.CartItem where c.Cart.ID == userCartID.ID select c;
+            var cartitems = from c in _context.CartItem where c.uid == user.Id select c;
 
+            // Get figurines here...
+            var figurines = from f in _context.Figurine select f;
             CartItems = await cartitems.ToListAsync();
-
-
+            Figurines = await figurines.ToListAsync();
         }
 
         public async Task<IActionResult> OnPostUpdateAsync(int id)

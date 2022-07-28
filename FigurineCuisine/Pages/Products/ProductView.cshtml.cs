@@ -53,6 +53,7 @@ namespace FigurineCuisine.Pages
                 {
                     CartID = cart.ID,
                     Quantity = Input.Quantity,
+                    uid= user.Id,
                     FigurineID = selectedProduct.ID
                 };
                 System.Diagnostics.Debug.WriteLine("CartID: " + CartItem.CartID);

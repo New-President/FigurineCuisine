@@ -217,6 +217,7 @@ namespace FigurineCuisine.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    uid = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     FigurineID = table.Column<int>(nullable: false),
                     CartID = table.Column<int>(nullable: false)
