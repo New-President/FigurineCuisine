@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
 
 namespace FigurineCuisine.Pages
 {
     public class ProductViewModel : PageModel
     {
+        public Figurine Figurine { get; set; }
         public string ReturnUrl { get; set; }
         public string? Category { get; set; }
 
@@ -30,20 +32,17 @@ namespace FigurineCuisine.Pages
         {
             [Required]
             public int Quantity { get; set; }
-            [Required]
-            public int FigurineID { get; set; }
         }
         public async Task OnGetAsync(int id)
         {
             selectedProduct = await _context.Figurine.FindAsync(id);
+            System.Diagnostics.Debug.WriteLine("Name: " + selectedProduct.Name);
         }
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
             // gets user
             var user = await _userManager.GetUserAsync(User);
-
-            //Category = selectedProduct.Category;
-
+            var cart = await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == user.Id);
             if (ModelState.IsValid)
             {
                 if (Input.Quantity == 0)
@@ -52,29 +51,27 @@ namespace FigurineCuisine.Pages
                 }
                 var CartItem = new CartItem
                 {
-                    CartID = user.Id,
+                    CartID = cart.ID,
                     Quantity = Input.Quantity,
-                    FigurineID = Input.FigurineID
+                    FigurineID = selectedProduct.ID
                 };
                 System.Diagnostics.Debug.WriteLine("CartID: " + CartItem.CartID);
                 System.Diagnostics.Debug.WriteLine("Quantity: " + CartItem.Quantity);
                 _context.CartItem.Add(CartItem);
-                if (await _context.SaveChangesAsync() > 0)
-                {
-                    // Create an auditrecord object
-                    var auditrecord = new AuditRecord();
-                    auditrecord.AuditActionType = "Add CartItem Record";
-                    auditrecord.DateTimeStamp = DateTime.Now;
-                    auditrecord.KeyFigurineFieldID = CartItem.ID;
-                    // Get current logged-in user
-                    var userID = User.Identity.Name.ToString();
-                    auditrecord.Username = userID;
-                    _context.AuditRecords.Add(auditrecord);
-                    await _context.SaveChangesAsync();
-                }
+
+                // Create an auditrecord object
+                var auditrecord = new AuditRecord();
+                auditrecord.AuditActionType = "Add CartItem Record";
+                auditrecord.DateTimeStamp = DateTime.Now;
+                auditrecord.KeyFigurineFieldID = CartItem.ID;
+                // Get current logged-in user
+                var userID = User.Identity.Name.ToString();
+                auditrecord.Username = userID;
+                _context.AuditRecords.Add(auditrecord);
+                await _context.SaveChangesAsync();
+
                 return RedirectToPage("/Checkout/Cart");
             }
-           
             return LocalRedirect("~/"); 
         }
     }

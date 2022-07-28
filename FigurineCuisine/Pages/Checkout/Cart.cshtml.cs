@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace FigurineCuisine.Pages.Checkout
 {
@@ -18,6 +19,9 @@ namespace FigurineCuisine.Pages.Checkout
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
         private readonly Data.FigurineCuisineContext _context;
+        public IList<CartItem> CartItems { get; set; }
+
+        public IList<Figurine> Figurines { get; set; }
         //private readonly IShop _shop;
 
         /// <summary>
@@ -44,18 +48,19 @@ namespace FigurineCuisine.Pages.Checkout
         public async Task OnGetAsync()
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
-            //CartItem = await _shop.GetCartItemsByUserIdAsync(user.Id);
+
+            var cartitems = from c in _context.CartItem select c;
+
+            CartItems = await cartitems.ToListAsync();
+
+
         }
 
         public async Task<IActionResult> OnPostUpdateAsync(int id)
         {
             int updatedQuantity = Convert.ToInt32(Request.Form["Quantity"]);
             ApplicationUser user = await _userManager.GetUserAsync(User);
-            //CartItems cartItem = await _shop.GetCartItemByProductIdForUserAsync(user.Id, id);
-
-            //cartItem.Quantity = updatedQuantity;
-            //await _shop.UpdateCartItemsAsync(cartItem);
-
+            
             return RedirectToPage();
         }
 

@@ -184,8 +184,8 @@ namespace FigurineCuisine.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CartID")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CartID")
+                        .HasColumnType("int");
 
                     b.Property<int>("FigurineID")
                         .HasColumnType("int");
@@ -194,6 +194,10 @@ namespace FigurineCuisine.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("CartID");
+
+                    b.HasIndex("FigurineID");
 
                     b.ToTable("CartItem");
                 });
@@ -341,6 +345,21 @@ namespace FigurineCuisine.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("FigurineCuisine.Models.CartItem", b =>
+                {
+                    b.HasOne("FigurineCuisine.Models.Cart", "Cart")
+                        .WithMany()
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FigurineCuisine.Models.Figurine", "Figurine")
+                        .WithMany()
+                        .HasForeignKey("FigurineID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

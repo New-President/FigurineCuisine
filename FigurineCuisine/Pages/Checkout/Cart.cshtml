@@ -10,13 +10,13 @@
     <h1 class="text-left">
         My Cart
     </h1>
-    @*@foreach (var item in Model.CartItem)
+    @foreach (var item in Model.CartItems)
     {
         <div class="row">
-            <div class="col-md-3">
-                <a href="/Shop/Product/@item.Product.ID">
-                    <img src="@Html.DisplayFor(modelItem => item.Product.Image)" width="250" height="250" />
-                </a>
+            @*<div class="col-md-3">
+                
+                <img src="@Html.DisplayFor(modelItem => item.Product.Image)" width="250" height="250" />
+                
             </div>
             <div class="col-md-9">
                 <form class="form-row" method="post">
@@ -27,15 +27,15 @@
                         <p>$@(item.Product.Price * item.Quantity)</p>
                     </div>
                     <div class="form-group col-md-4">
-                        <button type="submit" class="btn btn-outline-primary" asp-page-handler="update" asp-route-id="@item.ProductID">
+                        <button type="submit" class="btn btn-outline-primary" asp-page-handler="update" asp-route-id="@item.FigurineID">
                             Update
                         </button>
-                        <button type="submit" class="btn btn-outline-danger" asp-page-handler="delete" asp-route-id="@item.ProductID">
+                        <button type="submit" class="btn btn-outline-danger" asp-page-handler="delete" asp-route-id="@item.FigurineID">
                             Delete
                         </button>
                     </div>
                 </form>
-            </div>
+            </div>*@
         </div>
     }
     <div class="text-right">
@@ -44,4 +44,4 @@
     <div class="text-right">
         <a href="/Checkout" class="btn btn-outline-success" role="button">Check Out</a>
     </div>
-</div>*@
+</div>

@@ -85,21 +85,6 @@ namespace FigurineCuisine.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CartItem",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    CartID = table.Column<string>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    FigurineID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CartItem", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Figurine",
                 columns: table => new
                 {
@@ -226,6 +211,33 @@ namespace FigurineCuisine.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "CartItem",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Quantity = table.Column<int>(nullable: false),
+                    FigurineID = table.Column<int>(nullable: false),
+                    CartID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CartItem", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_CartItem_Cart_CartID",
+                        column: x => x.CartID,
+                        principalTable: "Cart",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartItem_Figurine_FigurineID",
+                        column: x => x.FigurineID,
+                        principalTable: "Figurine",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -264,6 +276,16 @@ namespace FigurineCuisine.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItem_CartID",
+                table: "CartItem",
+                column: "CartID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CartItem_FigurineID",
+                table: "CartItem",
+                column: "FigurineID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -287,19 +309,19 @@ namespace FigurineCuisine.Migrations
                 name: "AuditRecords");
 
             migrationBuilder.DropTable(
-                name: "Cart");
-
-            migrationBuilder.DropTable(
                 name: "CartItem");
-
-            migrationBuilder.DropTable(
-                name: "Figurine");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Cart");
+
+            migrationBuilder.DropTable(
+                name: "Figurine");
         }
     }
 }
