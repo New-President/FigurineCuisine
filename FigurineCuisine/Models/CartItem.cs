@@ -9,10 +9,7 @@ namespace FigurineCuisine.Models
         public int Quantity { get; set; }
         public int FigurineID { get; set; }
         public int CartID { get; set; }
-
-        // Navigational Properties
         public Figurine Figurine { get; set; }
-
         public Cart Cart { get; set; }
     }
 }
