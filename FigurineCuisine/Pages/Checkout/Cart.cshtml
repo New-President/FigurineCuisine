@@ -13,18 +13,18 @@
     @foreach (var item in Model.CartItems)
     {
         <div class="row">
-            @*<div class="col-md-3">
+            <div class="col-md-3">
                 
-                <img src="@Html.DisplayFor(modelItem => item.Product.Image)" width="250" height="250" />
+                <img src="@Html.DisplayFor(modelItem => item.Figurine.Image)" width="250" height="250" />
                 
             </div>
             <div class="col-md-9">
                 <form class="form-row" method="post">
                     <div class="form-group col-md-8">
-                        <h3>@item.Product.Name</h3>
+                        <h3>@item.Figurine.Brand</h3>
                         <label asp-for="@item.Quantity">Quantity</label>
                         <input asp-for="@item.Quantity" type="number" name="Quantity">
-                        <p>$@(item.Product.Price * item.Quantity)</p>
+                        <p>$@(item.Figurine.Price * item.Quantity)</p>
                     </div>
                     <div class="form-group col-md-4">
                         <button type="submit" class="btn btn-outline-primary" asp-page-handler="update" asp-route-id="@item.FigurineID">
@@ -35,7 +35,7 @@
                         </button>
                     </div>
                 </form>
-            </div>*@
+            </div>
         </div>
     }
     <div class="text-right">

@@ -49,7 +49,8 @@ namespace FigurineCuisine.Pages.Checkout
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
 
-            var cartitems = from c in _context.CartItem select c;
+            var userCartID = await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == user.Id);
+            var cartitems = from c in _context.CartItem where c.Cart.ID == userCartID.ID select c;
 
             CartItems = await cartitems.ToListAsync();
 
