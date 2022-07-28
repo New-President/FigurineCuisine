@@ -22,7 +22,7 @@ namespace FigurineCuisine.Pages
         [BindProperty(SupportsGet = true)]
         public string? FigurineCategory { get; set; }
         [BindProperty]
-        public CartItems CartItems { get; set; }
+        public CartItem CartItem { get; set; }
 
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
 
@@ -33,8 +33,12 @@ namespace FigurineCuisine.Pages
 
         public IList<ApplicationRole> ApplicationRole { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task<PageResult> OnGetAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return Page();
+            }
             IQueryable<string> categoryQuery = from m in _context.Figurine
                                                orderby m.Category
                                                select m.Category;
@@ -51,6 +55,7 @@ namespace FigurineCuisine.Pages
             }
             Category = new SelectList(await categoryQuery.Distinct().ToListAsync());
             Figurine = await figurines.ToListAsync();
+            return Page();
         }
         public async Task<IActionResult> OnPostAsync()
         {
@@ -59,7 +64,7 @@ namespace FigurineCuisine.Pages
                 return Page();
             }
 
-            _context.CartItems.Add(CartItems);
+            _context.CartItem.Add(CartItem);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Shop/Cart");

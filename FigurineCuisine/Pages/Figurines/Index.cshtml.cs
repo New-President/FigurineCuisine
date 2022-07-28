@@ -39,7 +39,6 @@ namespace FigurineCuisine.Pages.Figurines
                                             orderby m.Category
                                             select m.Category;
 
-            Figurine = await _context.Figurine.ToListAsync();
             var figurines = from m in _context.Figurine
                          select m; 
             if (!string.IsNullOrEmpty(SearchString))

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -16,6 +17,7 @@ namespace FigurineCuisine.Models
         public int RetailerID { get; set; }
 
         [JsonPropertyName("img")]
+        [DataType(DataType.ImageUrl)]
         [Display(Name = "Display Image Url")]
         public string Image { get; set; }
 
@@ -38,5 +40,10 @@ namespace FigurineCuisine.Models
         [Required]
         [StringLength(10)]
         public string Category { get; set; }
+
+        public static implicit operator Figurine(List<Figurine> v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

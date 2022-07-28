@@ -24,17 +24,19 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
-
+        private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            FigurineCuisine.Data.FigurineCuisineContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         [BindProperty]
@@ -64,6 +66,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
+            [DataType(DataType.EmailAddress)]
             [RegularExpression("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", ErrorMessage = "Please enter a valid email address")]
             public string Email { get; set; }
 
@@ -122,6 +125,13 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
                     PostalCode = Input.Zip
                 
                 };
+                var cart = new Cart
+                {
+                    UserID = user.Id
+                };
+
+                _context.Cart.Add(cart);
+
                 System.Diagnostics.Debug.WriteLine("success2");
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)

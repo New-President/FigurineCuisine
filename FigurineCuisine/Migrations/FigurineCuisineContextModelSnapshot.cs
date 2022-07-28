@@ -162,14 +162,32 @@ namespace FigurineCuisine.Migrations
                     b.ToTable("AuditRecords");
                 });
 
-            modelBuilder.Entity("FigurineCuisine.Models.CartItems", b =>
+            modelBuilder.Entity("FigurineCuisine.Models.Cart", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("FigurineID")
+                    b.Property<string>("UserID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Cart");
+                });
+
+            modelBuilder.Entity("FigurineCuisine.Models.CartItem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CartID")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("FigurineID")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -177,9 +195,7 @@ namespace FigurineCuisine.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("FigurineID");
-
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("FigurineCuisine.Models.Figurine", b =>
@@ -325,13 +341,6 @@ namespace FigurineCuisine.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("FigurineCuisine.Models.CartItems", b =>
-                {
-                    b.HasOne("FigurineCuisine.Models.Figurine", "Figurine")
-                        .WithMany()
-                        .HasForeignKey("FigurineID");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

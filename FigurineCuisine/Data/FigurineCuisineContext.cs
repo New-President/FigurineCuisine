@@ -24,7 +24,7 @@ namespace FigurineCuisine.Data
         public DbSet<FigurineCuisine.Models.Figurine> Figurine { get; set; }
         public DbSet<FigurineCuisine.Models.Cart> Cart { get; set; }
 
-        public DbSet<FigurineCuisine.Models.CartItems> CartItems { get; set; }
+        public DbSet<FigurineCuisine.Models.CartItem> CartItem { get; set; }
 
         public DbSet<FigurineCuisine.Models.AuditRecord> AuditRecords { get; set; }
     }

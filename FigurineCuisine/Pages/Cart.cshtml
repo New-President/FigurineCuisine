@@ -8,10 +8,10 @@
         <h1 class="text-left">
             My Cart
         </h1>
-        @foreach (var item in Model.CartItem)
+        @foreach (var item in Model.CartItems)
         {
             <div class="row">
-                <div class="col-md-3">
+                @*<div class="col-md-3">
                     <a href="/Shop/Product/@item.Figurine.ID">
                         <img src="@Html.DisplayFor(modelItem => item.Figurine.Image)" width="250" height="250" />
                     </a>
@@ -33,7 +33,7 @@
                             </button>
                         </div>
                     </form>
-                </div>
+                </div>*@
             </div>
         }
         <div class="text-right">
