@@ -36,19 +36,19 @@ namespace FigurineCuisine.Pages
         public async Task OnGetAsync(int id)
         {
             selectedProduct = await _context.Figurine.FindAsync(id);
-            ReturnUrl = "Products/ProductView/" + id;
         }
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             // gets user
             var user = await _userManager.GetUserAsync(User);
-            Input.FigurineID = selectedProduct.ID;
-            Category = selectedProduct.Category;
+
+            //Category = selectedProduct.Category;
+
             if (ModelState.IsValid)
             {
                 if (Input.Quantity == 0)
                 {
-                    return LocalRedirect(ReturnUrl);
+                    return LocalRedirect("~/");
                 }
                 var CartItem = new CartItem
                 {
@@ -75,7 +75,7 @@ namespace FigurineCuisine.Pages
                 return RedirectToPage("/Checkout/Cart");
             }
            
-            return LocalRedirect(ReturnUrl); 
+            return LocalRedirect("~/"); 
         }
     }
 }
