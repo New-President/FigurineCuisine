@@ -41,6 +41,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
+        public string LastName { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -105,6 +106,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            var user = await _userManager.GetUserAsync(User);
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

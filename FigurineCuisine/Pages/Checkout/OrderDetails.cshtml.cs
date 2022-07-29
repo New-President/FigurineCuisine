@@ -156,7 +156,7 @@ namespace FigurineCuisine.Pages.Checkout
                 //        await _emailSender.SendEmailAsync(user.Email, subject, message);
                 //        await _shop.RemoveCartItemsAsync(cartItems);
 
-                //        return Redirect("/Checkout/Receipt");
+                        return Redirect("/Checkout/Receipt");
                 //    }
                 //}
             }
@@ -169,23 +169,20 @@ namespace FigurineCuisine.Pages.Checkout
             public DateTime Date { get; set; }
 
             [Required]
-            [Display(Name = "First Name:")]
-            public string FirstName { get; set; }
+            [RegularExpression(@"^[0-9]{16}$", ErrorMessage = " Please enter a valid Card Number ")]
+            public string CardNumber { get; set; }
 
             [Required]
-            [Display(Name = "Last Name:")]
-            public string LastName { get; set; }
+            public string Name { get; set; }
 
             [Required]
-            public string Address { get; set; }
+            [DataType(DataType.Date)]
+            public string ExpiryDate { get; set; }
 
             [Required]
-            public string Country { get; set; }
-
-            [Required]
-            [DataType(DataType.PostalCode)]
-            [Compare("Zip", ErrorMessage = "The is an invalid zip code")]
-            public string Zip { get; set; }
+            [DataType(DataType.Password)]
+            [RegularExpression("^[0-9]{3}$", ErrorMessage = " Please enter a valid security code.")] 
+            public string SecurityCode { get; set; }
 
             [Required]
             public CreditCard CreditCard { get; set; }
@@ -193,10 +190,8 @@ namespace FigurineCuisine.Pages.Checkout
 
         public enum CreditCard
         {
-            Visa = 0,
+            Visa,
             Mastercard,
-            [Display(Name = "American Express")]
-            AmericanExpress
         }
     }
 }
