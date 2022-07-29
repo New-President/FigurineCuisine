@@ -18,6 +18,6 @@ namespace FigurineCuisine.Models
         public string State { get; set; }
 
         [Display(Name = "Postal Code")]
-        public int PostalCode { get; set; }
+        public string PostalCode { get; set; }
     }
 }

@@ -94,7 +94,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             [Required]
             [DataType(DataType.PostalCode)]
             [StringLength(6, ErrorMessage = "The is an invalid zip code", MinimumLength = 6)]
-            public int Zip { get; set; }
+            public string Zip { get; set; }
 
             [Required]
             [StringLength(1, ErrorMessage = "Prove that you are not a robot!", MinimumLength = 1)]
