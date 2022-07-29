@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FigurineCuisine.Migrations
 {
-    public partial class all : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,8 +74,7 @@ namespace FigurineCuisine.Migrations
                 name: "Cart",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ID = table.Column<string>(nullable: false),
                     UserID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -219,7 +218,7 @@ namespace FigurineCuisine.Migrations
                     uid = table.Column<string>(nullable: true),
                     Quantity = table.Column<int>(nullable: false),
                     FigurineID = table.Column<int>(nullable: false),
-                    CartID = table.Column<int>(nullable: false)
+                    CartID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -229,7 +228,7 @@ namespace FigurineCuisine.Migrations
                         column: x => x.CartID,
                         principalTable: "Cart",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_CartItem_Figurine_FigurineID",
                         column: x => x.FigurineID,

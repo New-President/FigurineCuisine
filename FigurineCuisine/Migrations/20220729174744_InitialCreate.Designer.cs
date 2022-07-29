@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FigurineCuisine.Migrations
 {
     [DbContext(typeof(FigurineCuisineContext))]
-    [Migration("20220729172131_all")]
-    partial class all
+    [Migration("20220729174744_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -163,10 +163,8 @@ namespace FigurineCuisine.Migrations
 
             modelBuilder.Entity("FigurineCuisine.Models.Cart", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
@@ -183,8 +181,8 @@ namespace FigurineCuisine.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CartID")
-                        .HasColumnType("int");
+                    b.Property<string>("CartID")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("FigurineID")
                         .HasColumnType("int");
@@ -353,9 +351,7 @@ namespace FigurineCuisine.Migrations
                 {
                     b.HasOne("FigurineCuisine.Models.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CartID");
 
                     b.HasOne("FigurineCuisine.Models.Figurine", "Figurine")
                         .WithMany()

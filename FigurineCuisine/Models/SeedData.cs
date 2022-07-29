@@ -24,7 +24,7 @@ namespace FigurineCuisine.Models
                 {
                     return;   // DB has been seeded
                 }
-
+                
                 context.Figurine.AddRange(
                     new Figurine
                     {
@@ -120,7 +120,15 @@ namespace FigurineCuisine.Models
                         RoleId = "1",
                         UserId = "1",
                     }
-               );
+                );
+
+                context.Cart.AddRange(
+                    new Cart
+                    {
+                        ID = "1",
+                        UserID = "1"
+                    }
+                );
                 context.SaveChanges();
             }
         }

@@ -8,7 +8,7 @@ namespace FigurineCuisine.Models
         public string uid { get; set; }
         public int Quantity { get; set; }
         public int FigurineID { get; set; }
-        public int CartID { get; set; }
+        public string CartID { get; set; }
         public Figurine Figurine { get; set; }
         public Cart Cart { get; set; }
     }
