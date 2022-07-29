@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FigurineCuisine.Migrations
 {
     [DbContext(typeof(FigurineCuisineContext))]
-    [Migration("20220728140723_InitialCreate")]
+    [Migration("20220729055126_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -108,8 +108,8 @@ namespace FigurineCuisine.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
 
                     b.Property<string>("Region")
                         .HasColumnType("nvarchar(max)");
