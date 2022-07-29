@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FigurineCuisine.Models
 {
-    public class ApplicationRole: IdentityRole
+    public class ApplicationRole : IdentityRole
     {
         public string Description { get; set; }
         public DateTime CreatedDate { get; set; }

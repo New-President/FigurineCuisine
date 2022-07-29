@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FigurineCuisine.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class all : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,8 +47,7 @@ namespace FigurineCuisine.Migrations
                     LastName = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     Region = table.Column<string>(nullable: true),
-                    State = table.Column<string>(nullable: true),
-                    PostalCode = table.Column<int>(nullable: false)
+                    PostalCode = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

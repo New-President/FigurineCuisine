@@ -79,6 +79,48 @@ namespace FigurineCuisine.Models
                         Image = "https://upload.wikimedia.org/wikipedia/commons/0/01/Gliederpuppe.jpg"
                     }
                 );
+                context.Roles.AddRange(
+                    new ApplicationRole
+                    {
+                        Id = "1",
+                        Name = "Admin",
+                        NormalizedName = "ADMIN",
+                        Description = "Admin Roles",
+                        CreatedDate = DateTime.Now,
+                        IPAddress = "::1"
+                    },
+                    new ApplicationRole
+                    {
+                        Name = "User",
+                        NormalizedName = "USER",
+                        Description = "User Roles",
+                        CreatedDate= DateTime.Now,
+                        IPAddress = "::1"
+                    }
+                );
+                context.Users.AddRange(
+                    new ApplicationUser
+                    {
+                        Id = "1",
+                        UserName = "Admin",
+                        NormalizedEmail = "A@GMAIL.COM",
+                        NormalizedUserName = "ADMIN",
+                        Email = "a@gamil.com",
+                        FirstName = "Admin",
+                        LastName = "Admin",
+                        Address = "Happy Land",
+                        Region = "North",
+                        PostalCode = "123456",
+                        PasswordHash = "AQAAAAEAACcQAAAAEP7Lk/k0C6lyWTIeqlNyPFyzn68MHv3q+aKCcfsVZSsJZ+ocFycdeByOiSuRzhV8Bw=="
+                    }
+                );
+                context.UserRoles.AddRange(
+                    new Microsoft.AspNetCore.Identity.IdentityUserRole<string>
+                    {
+                        RoleId = "1",
+                        UserId = "1",
+                    }
+               );
                 context.SaveChanges();
             }
         }

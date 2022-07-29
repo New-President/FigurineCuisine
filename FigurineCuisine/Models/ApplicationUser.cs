@@ -15,8 +15,6 @@ namespace FigurineCuisine.Models
 
         public string Region { get; set; }
 
-        public string State { get; set; }
-
         [Display(Name = "Postal Code")]
         public string PostalCode { get; set; }
     }
