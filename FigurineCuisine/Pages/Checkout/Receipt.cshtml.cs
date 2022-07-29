@@ -29,6 +29,9 @@ namespace FigurineCuisine.Pages.Checkout
             _userManager = userManager;
         }
 
+        public async Task<Cart> GetCartByUserIdAsync(string userId) => await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == userId);
+
+
 
         /// <summary>
         /// Create a user of type ApplicationUser that gets the user that is currently signed in
@@ -42,12 +45,9 @@ namespace FigurineCuisine.Pages.Checkout
             var cartItems = from c in _context.CartItem select c;
             cartItems = cartItems.Where(c => c.uid.Contains(user.Id));
             //CartItems = await cartItems.ToListAsync();
-            CartItem = await GetCartItemsByUserIdAsync(user.Id);
+            CartItem = await GetCartItemsByUserIdAsync(user.Id.ToString());
             //Cart cart = await _order.GetLatestOrderForUserAsync(user.Id);
-            //OrderItems = await _order.GetOrderItemsByOrderIdAsync(order.ID);
         }
-
-        public async Task<Cart> GetCartByUserIdAsync(string userId) => await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == userId);
 
 
         /// <summary>
@@ -69,53 +69,30 @@ namespace FigurineCuisine.Pages.Checkout
             //cartItem.Quantity = updatedQuantity;
             //await UpdateCartItemsAsync(cartItem);
 
-            return RedirectToPage();
-
+            return Redirect("/Checkout/Cart");
 
         }
 
-        public async Task<IActionResult> OnPostDeleteAsync(int id)
+
+        public async Task<IActionResult> OnPostAsync()
         {
-            ApplicationUser user = await _userManager.GetUserAsync(User);
-            IEnumerable<CartItem> cartItems = await GetCartItemsByUserIdAsync(user.Id);
-            foreach (var cartItem in cartItems)
+            if (ModelState.IsValid)
             {
-                await RemoveCartItemsAsync(user.Id, cartItem.FigurineID);
+                ApplicationUser user = await _userManager.GetUserAsync(User);
+                IEnumerable<CartItem> cartItems = await GetCartItemsByUserIdAsync(user.Id);
+
+                await RemoveCartItemsAsync(cartItems);
+
+                return LocalRedirect("~/");
             }
 
-            return Redirect("/Checkout/Cart");
+            return Page();
         }
-        //public async Task<IActionResult> OnPostDeleteAsync(int id)
-        //{
-        //    ApplicationUser user = await _userManager.GetUserAsync(User);
-        //    await RemoveCartItemsAsync(user.Id, id);
-
-        //    return RedirectToPage();
-        //}
 
         public async Task<IEnumerable<CartItem>> GetCartItemsByUserIdAsync(string userId)
         {
             Cart cart = await GetCartByUserIdAsync(userId);
             return _context.CartItem.Where(cartItem => cartItem.CartID == cart.ID).Include(x => x.Figurine);
-        }
-
-        public async Task<CartItem> GetCartItemByProductIdForUserAsync(string userId, int productId)
-        {
-            var cartItems = await GetCartItemsByUserIdAsync(userId);
-            return cartItems.FirstOrDefault(cartItem => cartItem.FigurineID == productId);
-        }
-
-        public async Task UpdateCartItemsAsync(CartItem cartItem)
-        {
-            _context.CartItem.Update(cartItem);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task RemoveCartItemsAsync(string userId, int productId)
-        {
-            CartItem cartItem = await GetCartItemByProductIdForUserAsync(userId, productId);
-            _context.CartItem.Remove(cartItem);
-            await _context.SaveChangesAsync();
         }
 
         public async Task RemoveCartItemsAsync(IEnumerable<CartItem> cartItems)
