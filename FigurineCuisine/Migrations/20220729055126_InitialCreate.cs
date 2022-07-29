@@ -48,7 +48,7 @@ namespace FigurineCuisine.Migrations
                     Address = table.Column<string>(nullable: true),
                     Region = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
-                    PostalCode = table.Column<string>(nullable: true)
+                    PostalCode = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
