@@ -55,8 +55,8 @@ namespace FigurineCuisine
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 1;
                 // Lockout settings
-                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(3);
-                options.Lockout.MaxFailedAccessAttempts = 1;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
                 // User settings
                 options.User.RequireUniqueEmail = true;
