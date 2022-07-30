@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FigurineCuisine.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace RazorPagesMovie.Pages.Roles
 {
@@ -11,9 +13,11 @@ namespace RazorPagesMovie.Pages.Roles
     public class EditModel : PageModel
     {
         private readonly RoleManager<ApplicationRole> _roleManager;
-        public EditModel(RoleManager<ApplicationRole> roleManager)
+        private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
+        public EditModel(RoleManager<ApplicationRole> roleManager, FigurineCuisine.Data.FigurineCuisineContext context)
         {
             _roleManager = roleManager;
+            _context = context;
         }
 
         [BindProperty]
@@ -42,6 +46,19 @@ namespace RazorPagesMovie.Pages.Roles
             appRole.Name = ApplicationRole.Name;
             appRole.Description = ApplicationRole.Description;
             IdentityResult roleRuslt = await _roleManager.UpdateAsync(appRole);
+            if (await _context.SaveChangesAsync()>0)
+            {
+                // Create an auditrecord object
+                var auditrecord = new AuditRecord();
+                auditrecord.AuditActionType = "Edit CartItem Record";
+                auditrecord.DateTimeStamp = DateTime.Now;
+                auditrecord.KeyFigurineFieldID = Int32.Parse(ApplicationRole.Id);
+                // Get current logged-in user
+                var userID = User.Identity.Name.ToString();
+                auditrecord.Username = userID;
+                _context.AuditRecords.Add(auditrecord);
+                await _context.SaveChangesAsync();
+            }
             if (roleRuslt.Succeeded)
             {
                 return RedirectToPage("./Index");

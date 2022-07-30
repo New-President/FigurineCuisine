@@ -51,7 +51,19 @@ namespace FigurineCuisine.Pages.Figurines
             }
 
             _context.Attach(Figurine).State = EntityState.Modified;
-
+            if (await _context.SaveChangesAsync()>0)
+            {
+                // Create an auditrecord object
+                var auditrecord = new AuditRecord();
+                auditrecord.AuditActionType = "Edit Figurine Record";
+                auditrecord.DateTimeStamp = DateTime.Now;
+                auditrecord.KeyFigurineFieldID = Figurine.ID;
+                // Get current logged-in user
+                var userID = User.Identity.Name.ToString();
+                auditrecord.Username = userID;
+                _context.AuditRecords.Add(auditrecord);
+                await _context.SaveChangesAsync();
+            }
             try
             {
                 await _context.SaveChangesAsync();

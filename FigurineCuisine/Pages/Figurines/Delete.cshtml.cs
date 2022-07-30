@@ -58,7 +58,7 @@ namespace FigurineCuisine.Pages.Figurines
                 if (await _context.SaveChangesAsync() > 0)
                 {
                     var auditrecord = new AuditRecord();
-                    auditrecord.AuditActionType = "Delete Movie Record";
+                    auditrecord.AuditActionType = "Delete Figurine Record";
                     auditrecord.DateTimeStamp = DateTime.Now;
                     auditrecord.KeyFigurineFieldID = Figurine.ID;
                     var userID = User.Identity.Name.ToString();
