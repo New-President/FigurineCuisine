@@ -60,6 +60,7 @@ namespace FigurineCuisine.Pages.Checkout
         public async Task OnGetAsync()
         {
             appUser = await _userManager.GetUserAsync(User);
+            System.Diagnostics.Debug.WriteLine(appUser.Address);
         }
         /// <summary>
         /// This post operation uses UserManager to get the current signed in user
@@ -70,7 +71,8 @@ namespace FigurineCuisine.Pages.Checkout
         /// <returns>If the ckeckout process is successful, redirect to the receipt page. Otherwise, returns to the same page</returns>
         public async Task<IActionResult> OnPostAsync(bool rememberMe, string returnUrl = null)
         {
-            if (ModelState.IsValid)
+            appUser = await _userManager.GetUserAsync(User);
+            if ((ModelState.IsValid | (Input.TwoFactorCode == null && !appUser.TwoFactorEnabled)))
             {
                 //ApplicationUser user = await _userManager.GetUserAsync(User);
                 //IEnumerable<CartItem> cartItems = await GetCartItemsByUserIdAsync(user.Id);
@@ -79,7 +81,7 @@ namespace FigurineCuisine.Pages.Checkout
 
                 return Redirect("/Checkout/Receipt");
              }
-            if (Input.TwoFactorCode == null && appUser.TwoFactorEnabled)
+            if (Input.TwoFactorCode == null)
             {
                 return Page();
             }
