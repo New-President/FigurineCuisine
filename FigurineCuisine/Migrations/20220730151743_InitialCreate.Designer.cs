@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FigurineCuisine.Migrations
 {
     [DbContext(typeof(FigurineCuisineContext))]
-    [Migration("20220730113520_InitialCreate")]
+    [Migration("20220730151743_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
