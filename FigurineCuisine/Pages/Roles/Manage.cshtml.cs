@@ -58,8 +58,7 @@ namespace RazorPagesMovie.Pages.Roles
             RolesSelectList = new SelectList(await RoleQuery.Distinct().ToListAsync());
             UsersSelectList = new SelectList(await UsersQuery.Distinct().ToListAsync());
             // Get all the roles 
-            var roles = from r in _roleManager.Roles
-                        select r;
+            var roles = from r in _roleManager.Roles select r;
             Listroles = await roles.ToListAsync();
         }
         public async Task<IActionResult> OnPostAsync(string selectedusername, string selectedrolename)
@@ -69,8 +68,7 @@ namespace RazorPagesMovie.Pages.Roles
             {
                 return RedirectToPage("Manage");
             }
-            ApplicationUser AppUser = _context.Users.SingleOrDefault(u => u.UserName ==
-           selectedusername);
+            ApplicationUser AppUser = _context.Users.SingleOrDefault(u => u.UserName == selectedusername);
             ApplicationRole AppRole = await _roleManager.FindByNameAsync(selectedrolename);
             IdentityResult roleResult = await _userManager.AddToRoleAsync(AppUser, AppRole.Name);
             if (roleResult.Succeeded)
@@ -80,8 +78,7 @@ namespace RazorPagesMovie.Pages.Roles
             }
             return RedirectToPage("Manage");
         }
-        public async Task<IActionResult> OnPostDeleteUserRoleAsync(string delusername, string
-       delrolename)
+        public async Task<IActionResult> OnPostDeleteUserRoleAsync(string delusername, string delrolename)
         {
             //When the Delete this user from Role button is pressed 
             if ((delusername == null) || (delrolename == null))

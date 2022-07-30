@@ -137,10 +137,18 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
                 {
                     UserID = user.Id
                 };
+                var userRole = new IdentityUserRole<string>
+                {
+                    RoleId = "1",
+                    UserId = user.Id,
+                };
 
                 _context.Cart.Add(cart);
+                System.Diagnostics.Debug.WriteLine("Added new cart");
 
-                System.Diagnostics.Debug.WriteLine("success2");
+                _context.UserRoles.Add(userRole);
+                System.Diagnostics.Debug.WriteLine("Added account to user");
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

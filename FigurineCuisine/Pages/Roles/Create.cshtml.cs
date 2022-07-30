@@ -4,8 +4,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using FigurineCuisine.Models;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
+
 namespace RazorPagesMovie.Pages.Roles
 {
+    [Authorize(Roles = "Admin")]
     public class CreateModel : PageModel
     {
         private readonly RoleManager<ApplicationRole> _roleManager;
