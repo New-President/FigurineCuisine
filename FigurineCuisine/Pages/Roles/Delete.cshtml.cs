@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RazorPagesMovie.Pages.Roles
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         private readonly RoleManager<ApplicationRole> _roleManager;

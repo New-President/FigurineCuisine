@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FigurineCuisine.Data;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Audit
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;

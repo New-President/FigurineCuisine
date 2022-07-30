@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FigurineCuisine.Data;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Audit
 {
+
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;

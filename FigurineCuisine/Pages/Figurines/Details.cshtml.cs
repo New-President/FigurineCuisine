@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using FigurineCuisine.Data;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Figurines
 {
+    [Authorize(Roles = "Admin")]
     public class DetailsModel : PageModel
     {
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;
