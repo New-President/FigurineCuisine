@@ -39,6 +39,11 @@
             <input asp-for="Input.SecurityCode" type="password" >
             <span class="text-danger" asp-validation-for="Input.SecurityCode"></span>
         </div>
+        <div class="form-group row">
+            <label asp-for="Input.TwoFactorCode">Authentication Code</label>
+            <input asp-for="Input.TwoFactorCode" class="form-control" autocomplete="off" />
+            <span asp-validation-for="Input.TwoFactorCode" class="text-danger"></span>
+        </div>
 
         <div class="text-right">
             <a href="/Checkout/Cart" class="btn btn-outline-warning" role="button">Return to Cart</a>
