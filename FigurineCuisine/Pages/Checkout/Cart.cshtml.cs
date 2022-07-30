@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FigurineCuisine.Pages.Checkout
 {
+    [Authorize(Roles = "Customer")]
     public class CartModel : PageModel
     {
         /// <summary>

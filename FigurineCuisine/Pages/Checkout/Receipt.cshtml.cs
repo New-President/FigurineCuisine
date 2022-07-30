@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FigurineCuisine.Pages.Checkout
 {
+    [Authorize(Roles = "Customer")]
     public class ReceiptModel : PageModel
     {
         public IEnumerable<CartItem> CartItem { get; set; }

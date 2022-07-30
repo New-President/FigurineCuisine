@@ -1,11 +1,9 @@
-    using System;
-using System.Collections.Generic;
+using System;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Threading.Tasks;
-using AuthorizeNet.Api.Contracts.V1;
 using FigurineCuisine.Areas.Identity.Pages.Account;
 using FigurineCuisine.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +17,7 @@ namespace FigurineCuisine.Pages.Checkout
     /// Inherits from PageModel class and brings in dependencies including UserManager, IEmailSender interface, and IShop interface
     /// Create a CheckoutInput class and set getter and setter
     /// </summary>
+    [Authorize(Roles = "Customer")]
     public class OrderDetailsModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;

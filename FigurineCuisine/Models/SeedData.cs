@@ -92,9 +92,9 @@ namespace FigurineCuisine.Models
                     new ApplicationRole
                     {
                         Id = "1",
-                        Name = "User",
-                        NormalizedName = "USER",
-                        Description = "User Roles",
+                        Name = "Customer",
+                        NormalizedName = "CUSTOMER",
+                        Description = "Customer Roles",
                         CreatedDate= DateTime.Now,
                         IPAddress = "::1"
                     }
