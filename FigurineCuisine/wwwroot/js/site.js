@@ -18,3 +18,15 @@ $(document).ready(function () {
         return false;
     });
 });
+
+function dateFunction() {
+    var today = new Date();
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (mm < 10) {
+        mm = "0" + mm;
+    }
+    var sToday = yyyy + "-" + mm
+    document.getElementById("myDate").setAttribute("min", sToday);
+
+}

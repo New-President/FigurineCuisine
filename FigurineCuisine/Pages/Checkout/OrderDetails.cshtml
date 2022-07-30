@@ -31,7 +31,7 @@
         </div>
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" asp-for="Input.ExpiryDate">Expiry date:</label>
-            <input asp-for="Input.ExpiryDate" type="month" >
+            <input id="myDate" asp-for="Input.ExpiryDate" type="month" onclick="dateFunction()" >
             <span class="text-danger" asp-validation-for="Input.ExpiryDate"></span>
         </div>
         <div class="form-group row">
