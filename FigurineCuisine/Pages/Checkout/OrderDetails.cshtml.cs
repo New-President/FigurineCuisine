@@ -57,7 +57,11 @@ namespace FigurineCuisine.Pages.Checkout
 
         public async Task<Cart> GetCartByUserIdAsync(string userId) => await _context.Cart.FirstOrDefaultAsync(cart => cart.UserID == userId);
 
-
+        public ApplicationUser appUser { get; set; }
+        public async Task OnGetAsync()
+        {
+            appUser = await _userManager.GetUserAsync(User);
+        }
         /// <summary>
         /// This post operation uses UserManager to get the current signed in user
         /// Set a variable to store the total costs of all items in the cart
@@ -76,7 +80,10 @@ namespace FigurineCuisine.Pages.Checkout
 
                 return Redirect("/Checkout/Receipt");
              }
-
+            if (Input.TwoFactorCode == null && appUser.TwoFactorEnabled)
+            {
+                return Page();
+            }
             returnUrl = returnUrl ?? Url.Content("~/");
 
             var user = await _userManager.GetUserAsync(User);
@@ -94,18 +101,12 @@ namespace FigurineCuisine.Pages.Checkout
                 _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
                 return LocalRedirect(returnUrl);
             }
-            else if (result.IsLockedOut)
-            {
-                _logger.LogWarning("User with ID '{UserId}' account locked out.", user.Id);
-                return RedirectToPage("./Lockout");
-            }
             else
             {
                 _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
                 ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
                 return Page();
             }
-            return Page();
         }
         
         
@@ -118,6 +119,7 @@ namespace FigurineCuisine.Pages.Checkout
 
             [Required]
             [RegularExpression(@"^[0-9]{16}$", ErrorMessage = " Please enter a valid Card Number ")]
+            [Display(Name = "Card Number")]
             public string CardNumber { get; set; }
 
             [Required]
@@ -133,6 +135,7 @@ namespace FigurineCuisine.Pages.Checkout
             public string SecurityCode { get; set; }
 
             [Required]
+            [Display(Name = "Credit Card")]
             public CreditCard CreditCard { get; set; }
 
             [Required]
