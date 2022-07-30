@@ -161,8 +161,10 @@ namespace FigurineCuisine.Migrations
 
             modelBuilder.Entity("FigurineCuisine.Models.Cart", b =>
                 {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("UserID")
                         .HasColumnType("nvarchar(max)");
@@ -179,8 +181,8 @@ namespace FigurineCuisine.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CartID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CartID")
+                        .HasColumnType("int");
 
                     b.Property<int>("FigurineID")
                         .HasColumnType("int");
@@ -349,7 +351,9 @@ namespace FigurineCuisine.Migrations
                 {
                     b.HasOne("FigurineCuisine.Models.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartID");
+                        .HasForeignKey("CartID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FigurineCuisine.Models.Figurine", "Figurine")
                         .WithMany()

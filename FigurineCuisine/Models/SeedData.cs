@@ -82,7 +82,7 @@ namespace FigurineCuisine.Models
                 context.Roles.AddRange(
                     new ApplicationRole
                     {
-                        Id = "1",
+                        Id = "0",
                         Name = "Admin",
                         NormalizedName = "ADMIN",
                         Description = "Admin Roles",
@@ -101,7 +101,7 @@ namespace FigurineCuisine.Models
                 context.Users.AddRange(
                     new ApplicationUser
                     {
-                        Id = "1",
+                        Id = "0",
                         UserName = "Admin",
                         NormalizedEmail = "A@GMAIL.COM",
                         NormalizedUserName = "ADMIN",
@@ -117,16 +117,15 @@ namespace FigurineCuisine.Models
                 context.UserRoles.AddRange(
                     new Microsoft.AspNetCore.Identity.IdentityUserRole<string>
                     {
-                        RoleId = "1",
-                        UserId = "1",
+                        RoleId = "0",
+                        UserId = "0",
                     }
                 );
 
                 context.Cart.AddRange(
                     new Cart
                     {
-                        ID = "1",
-                        UserID = "1"
+                        UserID = "0"
                     }
                 );
                 context.SaveChanges();
