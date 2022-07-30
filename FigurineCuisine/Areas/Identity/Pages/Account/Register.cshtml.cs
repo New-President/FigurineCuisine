@@ -41,7 +41,6 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
 
         [BindProperty]
         public InputModel Input { get; set; }
-        public string LastName { get; set; }
 
         public string ReturnUrl { get; set; }
 
@@ -65,6 +64,11 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
             public string LastName { get; set; }
 
             [Required]
+            [Display(Name = "Phone Number")]
+            [RegularExpression(@"^[0-9]{8,8}$", ErrorMessage = "Enter a valid phone number")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             [DataType(DataType.EmailAddress)]
@@ -85,6 +89,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
 
 
             [Required]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
             public string Address { get; set; }
 
 
@@ -93,7 +98,7 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
 
             [Required]
             [DataType(DataType.PostalCode)]
-            [StringLength(6, ErrorMessage = "The is an invalid zip code", MinimumLength = 6)]
+            [RegularExpression(@"^(?!00000)[0-9]{6,6}$", ErrorMessage = "Invalid Zip Code")]
             public string Zip { get; set; }
 
             [Required]
@@ -124,7 +129,8 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
                     LastName = Input.LastName,
                     Address = Input.Address,
                     Region = Input.Region,
-                    PostalCode = Input.Zip
+                    PostalCode = Input.Zip,
+                    PhoneNumber = Input.PhoneNumber
                 
                 };
                 var cart = new Cart

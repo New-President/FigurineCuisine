@@ -52,6 +52,10 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account
 
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+            [Required]
+            [StringLength(1, ErrorMessage = "Prove that you are not a robot!", MinimumLength = 1)]
+            public string Recaptcha { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

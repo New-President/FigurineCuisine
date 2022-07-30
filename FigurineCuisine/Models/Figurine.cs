@@ -39,6 +39,7 @@ namespace FigurineCuisine.Models
 
         [Required]
         [StringLength(10)]
+        [RegularExpression("Anime|Wooden|Others", ErrorMessage = "Invalid Status")]
         public string Category { get; set; }
 
         public static implicit operator Figurine(List<Figurine> v)

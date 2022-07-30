@@ -14,13 +14,15 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly Data.FigurineCuisineContext _context;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager, Data.FigurineCuisineContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _context = context;
         }
 
         public string Username { get; set; }
@@ -35,19 +37,35 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account.Manage
         {
             [Phone]
             [Display(Name = "Phone number")]
+            [RegularExpression(@"^[0-9]{8,8}$", ErrorMessage = "Enter a valid phone number")]
             public string PhoneNumber { get; set; }
+
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 5)]
+            public string Address { get; set; }
+
+            [DataType(DataType.PostalCode)]
+            [RegularExpression(@"^(?!00000)[0-9]{6,6}$", ErrorMessage = "Invalid Zip Code")]
+            public string PostalCode { get; set; }
+            public string Region { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
+            var owner = await _userManager.GetUserAsync(User);
             var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            //await _userManager.GetPhoneNumberAsync(user)
+            var phoneNumber = owner.PhoneNumber;
+            var address = owner.Address;
+            var region = owner.Region;
+            var postalCode = owner.PostalCode;
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                Address = address,
+                Region = region,
+                PostalCode = postalCode
             };
         }
 
@@ -87,6 +105,14 @@ namespace FigurineCuisine.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+            // Updates user details
+            var owner = await _userManager.GetUserAsync(User);
+            owner.Address = Input.Address;
+            owner.PhoneNumber = Input.PhoneNumber;
+            owner.PostalCode = Input.PostalCode;
+            owner.Region = Input.Region;
+            _context.ApplicationUser.Update(owner);
+            await _context.SaveChangesAsync();
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
