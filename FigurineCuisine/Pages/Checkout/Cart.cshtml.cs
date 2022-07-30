@@ -68,7 +68,19 @@ namespace FigurineCuisine.Pages.Checkout
 
             cartItem.Quantity = updatedQuantity;
             await UpdateCartItemsAsync(cartItem);
-
+            if (await _context.SaveChangesAsync()>0)
+            {
+                // Create an auditrecord object
+                var auditrecord = new AuditRecord();
+                auditrecord.AuditActionType = "Update CartItem Quanity Record";
+                auditrecord.DateTimeStamp = DateTime.Now;
+                auditrecord.KeyFigurineFieldID = id;
+                // Get current logged-in user
+                var userID = User.Identity.Name.ToString();
+                auditrecord.Username = userID;
+                _context.AuditRecords.Add(auditrecord);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToPage();
 
 
@@ -78,7 +90,19 @@ namespace FigurineCuisine.Pages.Checkout
         {
             ApplicationUser user = await _userManager.GetUserAsync(User);
             await RemoveCartItemsAsync(user.Id, id);
-
+            if (await _context.SaveChangesAsync()>0)
+            {
+                // Create an auditrecord object
+                var auditrecord = new AuditRecord();
+                auditrecord.AuditActionType = "Delete CartItem Record";
+                auditrecord.DateTimeStamp = DateTime.Now;
+                auditrecord.KeyFigurineFieldID = id;
+                // Get current logged-in user
+                var userID = User.Identity.Name.ToString();
+                auditrecord.Username = userID;
+                _context.AuditRecords.Add(auditrecord);
+                await _context.SaveChangesAsync();
+            }
             return RedirectToPage();
         }
 
