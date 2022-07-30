@@ -46,7 +46,7 @@ namespace FigurineCuisine.Pages.Figurines
             {
                 // Create an auditrecord object
                 var auditrecord = new AuditRecord();
-                auditrecord.AuditActionType = "Add Movie Record";
+                auditrecord.AuditActionType = "Add Figurine Record";
                 auditrecord.DateTimeStamp = DateTime.Now;
                 auditrecord.KeyFigurineFieldID = Figurine.ID;
                 // Get current logged-in user
