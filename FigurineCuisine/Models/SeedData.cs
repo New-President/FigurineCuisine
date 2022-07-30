@@ -97,6 +97,15 @@ namespace FigurineCuisine.Models
                         Description = "Customer Roles",
                         CreatedDate= DateTime.Now,
                         IPAddress = "::1"
+                    },
+                    new ApplicationRole
+                    {
+                        Id = "2",
+                        Name = "Salesperson",
+                        NormalizedName = "SALESPERSON",
+                        Description = "Salesperson Roles",
+                        CreatedDate = DateTime.Now,
+                        IPAddress = "::1"
                     }
                 );
                 context.Users.AddRange(
