@@ -60,16 +60,19 @@ namespace FigurineCuisine.Pages
                 System.Diagnostics.Debug.WriteLine("Quantity: " + CartItem.Quantity);
                 _context.CartItem.Add(CartItem);
 
-                // Create an auditrecord object
-                var auditrecord = new AuditRecord();
-                auditrecord.AuditActionType = "Add CartItem Record";
-                auditrecord.DateTimeStamp = DateTime.Now;
-                auditrecord.KeyFigurineFieldID = CartItem.ID;
-                // Get current logged-in user
-                var userID = User.Identity.Name.ToString();
-                auditrecord.Username = userID;
-                _context.AuditRecords.Add(auditrecord);
-                await _context.SaveChangesAsync();
+                if (await _context.SaveChangesAsync()>0)
+                {
+                    // Create an auditrecord object
+                    var auditrecord = new AuditRecord();
+                    auditrecord.AuditActionType = "Add CartItem Record";
+                    auditrecord.DateTimeStamp = DateTime.Now;
+                    auditrecord.KeyFigurineFieldID = CartItem.ID;
+                    // Get current logged-in user
+                    var userID = User.Identity.Name.ToString();
+                    auditrecord.Username = userID;
+                    _context.AuditRecords.Add(auditrecord);
+                    await _context.SaveChangesAsync();
+                }
 
                 return RedirectToPage("/Checkout/Cart");
             }
