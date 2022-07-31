@@ -30,7 +30,7 @@ namespace FigurineCuisine.Pages
             _context = context;
         }
 
-        public async Task OnGetAsync()
+        public void OnGetAsync()
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
             // Get the details of the exception that occurred
@@ -38,19 +38,6 @@ namespace FigurineCuisine.Pages
             iStatusCode = HttpContext.Response.StatusCode;
             Message = exception.Error.Message;
             StackTrace = exception.Error.StackTrace;
-            if (await _context.SaveChangesAsync()>0)
-            {
-                // Create an auditrecord object
-                var auditrecord = new AuditRecord();
-                auditrecord.AuditActionType = Message;
-                auditrecord.DateTimeStamp = DateTime.Now;
-                auditrecord.KeyFigurineFieldID = iStatusCode;
-                // Get current logged-in user
-                var userID = User.Identity.Name.ToString();
-                auditrecord.Username = userID;
-                _context.AuditRecords.Add(auditrecord);
-                await _context.SaveChangesAsync();
-            }
         }
     }
 }
