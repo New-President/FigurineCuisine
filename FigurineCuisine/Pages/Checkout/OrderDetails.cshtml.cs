@@ -69,23 +69,17 @@ namespace FigurineCuisine.Pages.Checkout
         /// After the email is sent out, redirect the user to receipt page
         /// </summary>
         /// <returns>If the ckeckout process is successful, redirect to the receipt page. Otherwise, returns to the same page</returns>
-        public async Task<IActionResult> OnPostAsync(bool rememberMe, string returnUrl = null)
+        public async Task<IActionResult> OnPostAsync()
         {
             appUser = await _userManager.GetUserAsync(User);
-            if ((ModelState.IsValid | (Input.TwoFactorCode == null && !appUser.TwoFactorEnabled)))
+            if ((ModelState.IsValid || (Input.TwoFactorCode == null && !appUser.TwoFactorEnabled)))
             {
-                //ApplicationUser user = await _userManager.GetUserAsync(User);
-                //IEnumerable<CartItem> cartItems = await GetCartItemsByUserIdAsync(user.Id);
-
-                //await RemoveCartItemsAsync(cartItems);
-
                 return Redirect("/Checkout/Receipt");
              }
             if (Input.TwoFactorCode == null)
             {
                 return Page();
             }
-            returnUrl = returnUrl ?? Url.Content("~/");
 
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
@@ -100,7 +94,7 @@ namespace FigurineCuisine.Pages.Checkout
             if (result.Succeeded)
             {
                 _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
-                return LocalRedirect(returnUrl);
+                return Redirect("/Checkout/Receipt");
             }
             else
             {
