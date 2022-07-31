@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FigurineCuisine.Data;
 using FigurineCuisine.Models;
-using Microsoft.AspNetCore.Authorization;
 
-namespace FigurineCuisine.Pages.Audit
+namespace FigurineCuisine.Pages.Figurines
 {
     [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
@@ -23,7 +23,7 @@ namespace FigurineCuisine.Pages.Audit
         }
 
         [BindProperty]
-        public AuditRecord AuditRecord { get; set; }
+        public Figurine Figurine { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,9 +32,9 @@ namespace FigurineCuisine.Pages.Audit
                 return NotFound();
             }
 
-            AuditRecord = await _context.AuditRecords.FirstOrDefaultAsync(m => m.Audit_ID == id);
+            Figurine = await _context.Figurine.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (AuditRecord == null)
+            if (Figurine == null)
             {
                 return NotFound();
             }
@@ -50,7 +50,7 @@ namespace FigurineCuisine.Pages.Audit
                 return Page();
             }
 
-            _context.Attach(AuditRecord).State = EntityState.Modified;
+            _context.Attach(Figurine).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace FigurineCuisine.Pages.Audit
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AuditRecordExists(AuditRecord.Audit_ID))
+                if (!FigurineExists(Figurine.ID))
                 {
                     return NotFound();
                 }
@@ -71,9 +71,9 @@ namespace FigurineCuisine.Pages.Audit
             return RedirectToPage("./Index");
         }
 
-        private bool AuditRecordExists(int id)
+        private bool FigurineExists(int id)
         {
-            return _context.AuditRecords.Any(e => e.Audit_ID == id);
+            return _context.Figurine.Any(e => e.ID == id);
         }
     }
 }
