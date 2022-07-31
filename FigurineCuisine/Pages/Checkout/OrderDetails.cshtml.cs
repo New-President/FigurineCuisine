@@ -72,36 +72,33 @@ namespace FigurineCuisine.Pages.Checkout
         public async Task<IActionResult> OnPostAsync()
         {
             appUser = await _userManager.GetUserAsync(User);
-            if ((ModelState.IsValid && (Input.TwoFactorCode == null && !appUser.TwoFactorEnabled)))
+            if ((ModelState.IsValid))
             {
                 return Redirect("/Checkout/Receipt");
              }
-            if (Input.TwoFactorCode == null)
-            {
-                return Page();
-            }
+            
+            //var user = await _userManager.GetUserAsync(User);
+            //if (user == null)
+            //{
+            //    throw new InvalidOperationException($"Unable to load two-factor authentication user.");
+            //}
+            //var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
 
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                throw new InvalidOperationException($"Unable to load two-factor authentication user.");
-            }
-
-            var authenticatorCode = Input.TwoFactorCode.Replace(" ", string.Empty).Replace("-", string.Empty);
-
-            var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, false, false);
-
-            if (result.Succeeded)
-            {
-                _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
-                return Redirect("/Checkout/Receipt");
-            }
-            else
-            {
-                _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
-                ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
-                return Page();
-            }
+            //var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, false, false);
+            //if (result.Succeeded)
+            //{
+                
+            //    _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.Id);
+            //    return Redirect("/Checkout/Receipt");
+            //}
+            //else
+            //{
+            //    _logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", user.Id);
+            //    ModelState.AddModelError(string.Empty, "Invalid authenticator code.");
+            //    return Page();
+            //}
+            
+            return Page();
         }
         
         
@@ -132,8 +129,7 @@ namespace FigurineCuisine.Pages.Checkout
             [Required]
             [Display(Name = "Credit Card")]
             public CreditCard CreditCard { get; set; }
-
-            [Required]
+            
             [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Text)]
             [Display(Name = "Authenticator code")]
