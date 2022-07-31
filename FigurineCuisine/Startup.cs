@@ -68,7 +68,7 @@ namespace FigurineCuisine
                 // options.Cookie.Domain=
                 // options.LoginPath = "/Account/Login";
                 // options.LogoutPath = "/Account/Logout";
-                // options.AccessDeniedPath = "/Account/AccessDenied";
+                // options.AccessDeniedPath = "/Account/AccessDenied";s
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromSeconds(900);
                 options.SlidingExpiration = true;
