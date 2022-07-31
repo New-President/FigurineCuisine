@@ -72,7 +72,7 @@ namespace FigurineCuisine.Pages.Checkout
         public async Task<IActionResult> OnPostAsync()
         {
             appUser = await _userManager.GetUserAsync(User);
-            if ((ModelState.IsValid || (Input.TwoFactorCode == null && !appUser.TwoFactorEnabled)))
+            if ((ModelState.IsValid && (Input.TwoFactorCode == null && !appUser.TwoFactorEnabled)))
             {
                 return Redirect("/Checkout/Receipt");
              }
