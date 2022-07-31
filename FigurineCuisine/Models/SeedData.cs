@@ -122,7 +122,7 @@ namespace FigurineCuisine.Models
                         Region = "North",
                         PostalCode = "123456",
                         PhoneNumber = "88076787",
-                        PasswordHash = "AQAAAAEAACcQAAAAEP7Lk/k0C6lyWTIeqlNyPFyzn68MHv3q+aKCcfsVZSsJZ+ocFycdeByOiSuRzhV8Bw==",
+                        PasswordHash = "AQAAAAEAACcQAAAAECCeItX7x3HnvGaLgKF7N9bRspQHACbomXWu2Et4Zf5yupoHPGWoSY38CAWuKE2r7w==",
                         LockoutEnabled = true
                     }
                 );
