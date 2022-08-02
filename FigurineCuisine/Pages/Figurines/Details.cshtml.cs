@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Figurines
 {
-    [Authorize(Roles = "Admin")]
-    [Authorize(Roles = "Salesperson")]
+    [Authorize(Roles = "Admin, Salesperson")]
+
     public class DetailsModel : PageModel
     {
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;

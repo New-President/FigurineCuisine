@@ -11,8 +11,7 @@ using FigurineCuisine.Models;
 
 namespace FigurineCuisine.Pages.Figurines
 {
-    [Authorize(Roles = "Admin")]
-    [Authorize(Roles = "Salesperson")]
+    [Authorize(Roles = "Admin, Salesperson")]
     public class CreateModel : PageModel
     {
         private readonly FigurineCuisine.Data.FigurineCuisineContext _context;

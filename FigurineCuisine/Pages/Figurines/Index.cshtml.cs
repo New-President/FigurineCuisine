@@ -12,9 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace FigurineCuisine.Pages.Figurines
 {
-    [Authorize(Roles = "Admin")]
-    [Authorize(Roles = "Salesperson")]
-    public class IndexModel : PageModel
+        [Authorize(Roles = "Admin, Salesperson")]
+        public class IndexModel : PageModel
     {
 
         public IList<Figurine> Figurine { get; set; }

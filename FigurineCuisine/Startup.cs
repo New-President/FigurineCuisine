@@ -84,6 +84,11 @@ namespace FigurineCuisine
                 options.AddPolicy("RequireCustomerRole",
                      policy => policy.RequireRole("Customer"));
             });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RequireSalespersonRole",
+                     policy => policy.RequireRole("Salesperson"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
