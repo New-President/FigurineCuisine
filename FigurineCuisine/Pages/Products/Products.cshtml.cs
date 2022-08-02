@@ -13,7 +13,6 @@ namespace FigurineCuisine.Pages
 {
     public class ProductsModel : PageModel
     {
-
         public IList<Figurine> Figurine { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? SearchString { get; set; }
